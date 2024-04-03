@@ -1,0 +1,36 @@
+section {
+    position: relative;
+    opacity: 0;
+
+    transition: ease-in-out 0.4s;
+
+    top: calc($header-top-height + 80px);
+    margin: 0 160px;
+    padding: 20px;
+
+    background-color: $color-background-black;
+
+    &.shown {
+        opacity: 1;
+        top: calc($header-top-height + 10px);
+    }
+
+    h2 {
+        color: $color-font-secondary;
+        text-transform: uppercase;
+
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1px;
+        letter-spacing: 2px;
+
+        &::after {
+            content: "";
+            width: 120px;
+            height: 1px;
+            display: inline-block;
+            background: $color-border;
+            margin: 4px 10px;
+        }
+    }
+}

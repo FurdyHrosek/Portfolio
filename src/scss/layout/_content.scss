@@ -1,0 +1,23 @@
+body {
+    background-color: $color-background;
+    margin: 0;
+
+    .content-wrapper {
+        background-color: $color-background;
+    }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: monospace;
+    color: $color-font-primary;
+}
+
+p, a, span, li, i {
+    font-family: monospace;
+    color: $color-font-primary;
+}

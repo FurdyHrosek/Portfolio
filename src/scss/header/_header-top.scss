@@ -1,0 +1,26 @@
+.header-top {
+	height: $header-top-height !important;
+	position: fixed !important;
+	left: 0;
+	top: 0;
+	right: 0;
+	background: $color-background-lightdark;
+
+	.container {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+	
+		.my-name {
+			font-size: 28px !important;
+		}
+		.my-title {
+			display: none !important;
+		}
+		.social-links {
+			display: none !important;
+		}
+	}
+}
