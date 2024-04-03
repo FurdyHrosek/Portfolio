@@ -37,8 +37,6 @@ export default class Skills {
         languages.forEach(language => {
             const percentage = parseInt(language.querySelector('.language-progress').textContent);
 
-            console.log(percentage)
-
             const progressBar = language.querySelector('.progress-bar');
             progressBar.style.width = percentage + '%';
         });

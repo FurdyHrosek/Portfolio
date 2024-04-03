@@ -3,11 +3,15 @@
         margin: 50px 0;
 
         .section-title {
-            margin-bottom: 25px;
+            margin-bottom: 40px;
         }
 
         &:first-child {
             margin: 0 !important; 
+
+            .section-title {
+                margin-bottom: 15px !important;
+            }
         }
 
         &.about-me-container {
@@ -68,6 +72,90 @@
     
                             background-color: $color-border;
                         }
+                    }
+                }
+            }
+        }
+
+        &.tools-container,
+        &.libraries-container {
+            .tools-content,
+            .libraries-content {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 10px;
+
+                .tool,
+                .library {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    width: calc(10% - 10px);
+                    text-align: center;
+                    padding-top: 15px;
+
+                    transition: $trans;
+                    background-color: $color-background-icon;
+
+                    &:hover {
+                        background-color: $color-background-icon-hover !important;
+                    }
+
+                    h3 {
+                        font-size: 13px;
+                    }
+
+                    &::before {
+                        content: '';
+                        display: block;
+                        width: 32px;
+                        max-width: 32px;
+                        height: 32px;
+                        max-height: 32px;
+                        background-size: cover;
+                        background-position: center;
+                    }
+                }
+            }
+        }
+
+        &.interests-container {
+            .interests-content {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 10px;
+
+                .interest {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+
+                    width: calc(20% - 8px);
+                    height: 50px;
+
+                    transition: $trans;
+                    background-color: $color-background-icon;
+
+                    &:hover {
+                        background-color: $color-background-icon-hover !important;
+                    }
+
+                    h3 {
+                        font-size: 13px;
+                    }
+
+                    &::before {
+                        content: '';
+                        display: block;
+                        width: 24px;
+                        max-width: 24px;
+                        height: 24px;
+                        max-height: 24px;
+                        margin: 0 10px;
+                        background-size: cover;
+                        background-position: center;
                     }
                 }
             }

@@ -12,10 +12,12 @@ section {
 
     &.shown {
         opacity: 1;
-        top: calc($header-top-height + 10px);
+        top: calc($header-top-height + 20px);
     }
 
     h2 {
+        position: relative;
+
         color: $color-font-secondary;
         text-transform: uppercase;
 
@@ -26,11 +28,16 @@ section {
 
         &::after {
             content: "";
-            width: 120px;
-            height: 1px;
             display: inline-block;
+
+            position: absolute;
+            left: 0;
+            bottom: -15px;
+
+            width: 250px;
+            height: 1px;
+
             background: $color-border;
-            margin: 4px 10px;
         }
     }
 }

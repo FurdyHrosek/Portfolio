@@ -1,0 +1,100 @@
+.library {
+    &#sass {
+        &::before {
+            background-image: url('/assets/icons/libraries/sass.png');
+        }
+    }
+    &#jquery {
+        &::before {
+            background-image: url('/assets/icons/libraries/jquery.svg');
+        }
+    }
+    &#webpack {
+        &::before {
+            background-image: url('/assets/icons/libraries/webpack.svg');
+        }
+    }
+}
+
+
+.tool {
+    &#vscode {
+        &::before {
+            background-image: url('/assets/icons/skills/vscode.png');
+        }
+    }
+    &#webstorm {
+        &::before {
+            background-image: url('/assets/icons/skills/webstorm.svg');
+        }
+    }
+    &#figma {
+        &::before {
+            background-image: url('/assets/icons/skills/figma.svg');
+        }
+    }
+    &#docker {
+        &::before {
+            background-image: url('/assets/icons/skills/docker.png');
+        }
+    }
+    &#xampp {
+        &::before {
+            background-image: url('/assets/icons/skills/xampp.png');
+        }
+    }
+    &#filezilla {
+        &::before {
+            background-image: url('/assets/icons/skills/filezilla.png');
+        }
+    }
+}
+
+
+.interest {
+    &#int-fire {
+        &::before {
+            background-image: url('/assets/icons/interests/fire.png');
+        }
+    }
+    &#int-harmred {
+        &::before {
+            background-image: url('/assets/icons/interests/pills.png');
+        }
+    }
+    &#int-festivals {
+        &::before {
+            background-image: url('/assets/icons/interests/festival.svg');
+        }
+    }
+    &#int-travel {
+        &::before {
+            background-image: url('/assets/icons/interests/travel.png');
+        }
+    }
+    &#int-games {
+        &::before {
+            background-image: url('/assets/icons/interests/games.svg');
+        }
+    }
+    &#int-computers {
+        &::before {
+            background-image: url('/assets/icons/interests/computer.svg');
+        }
+    }
+    &#int-science {
+        &::before {
+            background-image: url('/assets/icons/interests/science.png');
+        }
+    }
+    &#int-animals {
+        &::before {
+            background-image: url('/assets/icons/interests/shiba.svg');
+        }
+    }
+    &#int-music {
+        &::before {
+            background-image: url('/assets/icons/interests/music.svg');
+        }
+    }
+}

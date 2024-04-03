@@ -63,6 +63,7 @@ export default class Navigation {
         homeLink.addEventListener('click', (e) => {
             e.preventDefault();
             header.classList.remove('header-top');
+            
             removeActiveClass();
             addActiveClass(homeLink);
 
