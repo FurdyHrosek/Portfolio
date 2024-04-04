@@ -82,13 +82,14 @@ export default class Header {
      * Handle click on any navigation link
      */
     handleNavigationClick(navLink) {
-        const targetSectionId = navLink.getAttribute('href').substring(1);
+        const targetSectionID = navLink.getAttribute('href').substring(1);
         this.hideAllSections(homeAppearanceDelay);
-        const targetSection = document.getElementById(targetSectionId);
+        
+        const targetSection = document.getElementById(targetSectionID);
         
         if (targetSection) {
             this.showSection(targetSection);
-            this.toggleHeaderTop(targetSectionId);
+            this.toggleHeaderTopClass(targetSectionID);
             this.removeActiveClass();
             this.addActiveClass(navLink);
             this.isHomeSection = navLink === document.querySelector('.nav-link[href="#home"]');
@@ -127,7 +128,7 @@ export default class Header {
     /**
      * Toggle header-top class for header
      */
-    toggleHeaderTop(targetSectionId) {
+    toggleHeaderTopClass(targetSectionId) {
         this.header.classList.toggle('header-top', targetSectionId !== 'home');
     }
 

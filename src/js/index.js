@@ -16,7 +16,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if (!window.skillsLoaded) {
             Helpers.loadSection('about');
-            aboutLink.removeEventListener('click', clickHandler);
         }
     });
 });

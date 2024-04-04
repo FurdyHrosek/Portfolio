@@ -16,6 +16,7 @@ export default class Helpers {
    * @param {string} [options.value]
    * @param {string} [options.style]
    * @param {Object.<string, string>} [options.attributes] - An object containing additional attributes to set for the element.
+   * @param {Object.<string, string>} [options.dataset] - An object containing additional dataset to set for the element.
    * @returns {HTMLElement} The created DOM element.
    */
   createDOMElement = (elementType, options) => {
