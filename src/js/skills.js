@@ -1,11 +1,11 @@
 import { skills } from './_config.js';
-
-import Helpers from './helpers.js';
-
-const helpers = new Helpers();
+import Helpers from './_helpers.js';
 
 export default class Skills {
     constructor() {
+        this.helpers = new Helpers();
+        this.skillsParent = document.querySelector('.languages-content');
+
         this.createSkills(skills);
         this.handleProgressBar();
     }
@@ -13,7 +13,7 @@ export default class Skills {
     createSkills(skillsObject) {
         skillsObject.forEach(skill => {
             const [name, percentage] = skill;
-            const skillElement = helpers.createDOMElement('div', {
+            const skillElement = this.helpers.createDOMElement('div', {
                 classes: ['language-wrapper'],
                 html: `
                     <div class="language-title">
@@ -25,9 +25,7 @@ export default class Skills {
                     </div>
                 `
             });
-
-            const skillsParent = document.querySelector('.languages-content');
-            skillsParent.appendChild(skillElement);
+            this.skillsParent.appendChild(skillElement);
         });
     }
 
@@ -36,7 +34,6 @@ export default class Skills {
 
         languages.forEach(language => {
             const percentage = parseInt(language.querySelector('.language-progress').textContent);
-
             const progressBar = language.querySelector('.progress-bar');
             progressBar.style.width = percentage + '%';
         });
