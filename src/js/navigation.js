@@ -1,4 +1,4 @@
-import { homeAppearanceDelay } from './_config.js';
+import { homeAppearanceDelay, hackerEffectInterval } from './_config.js';
 
 export default class Header {
     constructor() {
@@ -20,6 +20,10 @@ export default class Header {
     
         this.navLinks.forEach(navLink => {
             navLink.addEventListener('mouseover', event => {
+                const isActiveLink = navLink.parentElement.classList.contains('active');
+
+                if (isActiveLink) return;
+                
                 let iterations = 0;
     
                 if (!navLink.dataset.originalText) {
@@ -43,7 +47,7 @@ export default class Header {
                     }
             
                     iterations += 1;
-                }, 30);
+                }, hackerEffectInterval);
     
                 navLink.addEventListener('mouseleave', () => {
                     clearInterval(interval);
@@ -52,6 +56,7 @@ export default class Header {
             });
         });
     }
+    
     
     
     

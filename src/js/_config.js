@@ -1,5 +1,8 @@
 export const homeAppearanceDelay = 250;
 export const progressAnimationDuration = 500;
+export const hackerEffectInterval = 35;
+
+export const workOriginalHeight = 120;
 
 export const skills = [
     ['HTML', '100%'],

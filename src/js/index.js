@@ -18,4 +18,12 @@ document.addEventListener('DOMContentLoaded', function() {
             Helpers.loadSection('about');
         }
     });
+
+    const resumeLink = document.querySelector('a.nav-link[href="#resume"]');
+    resumeLink.addEventListener('click', function clickHandler(e) {
+        e.preventDefault();
+
+        Helpers.loadSection('resume');
+        resumeLink.removeEventListener('click', clickHandler);
+    })
 });
