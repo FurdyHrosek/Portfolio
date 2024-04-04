@@ -1,3 +1,6 @@
+export const homeAppearanceDelay = 250;
+export const progressAnimationDuration = 500;
+
 export const skills = [
     ['HTML', '100%'],
     ['CSS', '90%'],

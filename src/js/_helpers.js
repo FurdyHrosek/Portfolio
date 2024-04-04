@@ -49,4 +49,21 @@ export default class Helpers {
 
     return element;
   };
+
+
+    /**
+     * Loads a section script dynamically.
+     *
+     * @param {string} sectionName - The name of the section script to load.
+     */
+    static async loadSection(sectionName) {
+      try {
+          const module = await import(`./${sectionName}.js`);
+          const Section = module.default;
+          new Section();
+          window[sectionName + 'Loaded'] = true;
+      } catch (error) {
+          console.error(`Error loading ${sectionName} script:`, error);
+      }
+  }
 }
