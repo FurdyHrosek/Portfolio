@@ -25,3 +25,12 @@ p, a, span, li, i {
     font-family: monospace;
     color: $color-font-primary;
 }
+
+a {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+
+    &:hover {
+        text-decoration: none;
+    }
+}

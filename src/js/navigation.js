@@ -1,4 +1,4 @@
-export default class Navigation {
+export default class Header {
     constructor() {
         this.handleNavigation();
     }
@@ -7,6 +7,8 @@ export default class Navigation {
         const navLinks = document.querySelectorAll('.nav-link');
         const sections = document.querySelectorAll('section');
         const header = document.querySelector('header');
+
+        let isHomeSection = true;
 
         sections.forEach(section => {
             section.style.display = 'none';
@@ -23,15 +25,23 @@ export default class Navigation {
         };
 
         const addShownClass = (section) => {
-            setTimeout(() => {
+            if (isHomeSection) {
+                setTimeout(() => {
+                    section.classList.add('shown');
+                }, 300);
+            } else {
                 section.classList.add('shown');
-            }, 300);
+            }
         };
 
-        const removeShownClass = (section) => {
-            setTimeout(() => {
+        const removeShownClass = (section, delay = 0) => {
+            if (isHomeSection) {
+                setTimeout(() => {
+                    section.classList.remove('shown');
+                }, delay);
+            } else {
                 section.classList.remove('shown');
-            }, 300);
+            }
         };
 
         navLinks.forEach(navLink => {
@@ -54,6 +64,7 @@ export default class Navigation {
 
                     removeActiveClass();
                     addActiveClass(navLink);
+                    isHomeSection = navLink === homeLink;
                 }
             });
         });
@@ -63,13 +74,14 @@ export default class Navigation {
         homeLink.addEventListener('click', (e) => {
             e.preventDefault();
             header.classList.remove('header-top');
-            
             removeActiveClass();
             addActiveClass(homeLink);
 
             sections.forEach(section => {
-                removeShownClass(section);
+                removeShownClass(section, 300);
             });
+            
+            isHomeSection = true;
         });
     }
 }

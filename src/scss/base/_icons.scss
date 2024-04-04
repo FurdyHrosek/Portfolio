@@ -1,3 +1,7 @@
+/**
+ * ABOUT ME: LIBRARIES
+ */
+
 .library {
     &#sass {
         &::before {
@@ -17,6 +21,10 @@
 }
 
 
+/**
+ * ABOUT ME: TOOLS
+ */
+
 .tool {
     &#vscode {
         &::before {
@@ -26,6 +34,16 @@
     &#webstorm {
         &::before {
             background-image: url('/assets/icons/skills/webstorm.svg');
+        }
+    }
+    &#unity {
+        &::before {
+            background-image: url('/assets/icons/skills/unity.svg');
+        }
+    }
+    &#shoptet {
+        &::before {
+            background-image: url('/assets/icons/skills/shoptet.png');
         }
     }
     &#figma {
@@ -50,6 +68,10 @@
     }
 }
 
+
+/**
+ * ABOUT ME: INTERESTS
+ */
 
 .interest {
     &#int-fire {
@@ -97,4 +119,44 @@
             background-image: url('/assets/icons/interests/music.svg');
         }
     }
+    &#int-gf {
+        &::before {
+            background-image: url('/assets/icons/interests/bat.png');
+        }
+    }
 }
+
+/**
+ * CONTACT
+ */
+
+ .contact-info {
+    &#contact-address {
+        .contact-icon {
+            &::before {
+                background-image: url('/assets/icons/contact/address.svg');
+            }
+        }
+    }
+    &#contact-socials {
+        .contact-icon {
+            &::before {
+                background-image: url('/assets/icons/contact/share.png');
+            }
+        }
+    }
+    &#contact-email {
+        .contact-icon {
+            &::before {
+                background-image: url('/assets/icons/contact/mail.svg');
+            }
+        }
+    }
+    &#contact-phone {
+        .contact-icon {
+            &::before {
+                background-image: url('/assets/icons/contact/phone.svg');
+            }
+        }
+    }
+ }
