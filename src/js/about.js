@@ -8,18 +8,19 @@ export default class About {
         this.skillsCreated = false;
 
         this.createSkills();
-        this.handleProgressBar();
+        this.startProgressAnimation();
     }
 
     /**
      * Animate skills progress bars to load from start til set percentage
      */
-    handleProgressBar() {
+    startProgressAnimation() {
         const languages = document.querySelectorAll('.language-wrapper');
 
         languages.forEach(language => {
             const percentage = parseInt(language.querySelector('.language-progress').textContent);
             const progressBar = language.querySelector('.progress-bar');
+            progressBar.style.width = '0';
             const initialWidth = 0;
             const finalWidth = percentage;
 

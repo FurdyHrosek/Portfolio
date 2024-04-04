@@ -41,9 +41,9 @@
             background-image: url('/assets/icons/skills/unity.svg');
         }
     }
-    &#shoptet {
+    &#git {
         &::before {
-            background-image: url('/assets/icons/skills/shoptet.png');
+            background-image: url('/assets/icons/skills/git.svg');
         }
     }
     &#figma {
@@ -64,6 +64,21 @@
     &#filezilla {
         &::before {
             background-image: url('/assets/icons/skills/filezilla.png');
+        }
+    }
+    &#shoptet {
+        &::before {
+            background-image: url('/assets/icons/skills/shoptet.png');
+        }
+    }
+    &#jira {
+        &::before {
+            background-image: url('/assets/icons/skills/jira.svg');
+        }
+    }
+    &#salesforce {
+        &::before {
+            background-image: url('/assets/icons/skills/salesforce.png');
         }
     }
 }

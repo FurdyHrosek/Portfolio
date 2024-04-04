@@ -1,4 +1,4 @@
-import { workOriginalHeight } from './_config.js';
+import { workOriginalHeight, workAnimationDuration } from './_config.js';
 
 export default class Resume {
     constructor() {
@@ -30,26 +30,53 @@ export default class Resume {
 
     /**
      * Handle mouseover event on work-helper elements
-     * @param {Event} event The mouseover event
-     * @param {HTMLElement} closestWork The closest .work element
      */
     handleMouseOver(event, closestWork, workHelper) {
         const workDescription = event.target.closest('.work').querySelector('.work-description');
+        const workDescriptionWrapper = workDescription.querySelector('.work-description-wrapper');
         const workDescriptionHeight = this.getWorkDescriptionHeight(workDescription);
-
+    
         if (workDescription) {
-            const offset = this.calculateWorkOffset(closestWork, workDescriptionHeight);
             workDescription.style.display = 'block';
+    
+            const offset = this.calculateWorkOffset(closestWork, workDescriptionHeight);
+
+            workDescriptionWrapper.style.maxHeight = '0';
+            workDescriptionWrapper.style.overflow = 'hidden';
+    
             const newHeight = offset > 0 ? workOriginalHeight + offset : workOriginalHeight;
             workHelper.style.setProperty('--work-helper-height', newHeight + 'px');
+
+            const workDescScrollHeight = workDescriptionWrapper.scrollHeight;
+            this.startDescriptionAnimation(workDescriptionWrapper, workDescScrollHeight, workAnimationDuration);
+    
             this.moveUpcomingWorks(offset, closestWork);
         }
     }
+    
+    
+    startDescriptionAnimation(element, targetHeight, duration) {
+        const startTime = performance.now();
+    
+        const descriptionAnimation = (currentTime) => {
+            const elapsedTime = currentTime - startTime;
+            const progress = Math.min(elapsedTime / duration, 1);
+            const newHeight = targetHeight * progress;
+    
+            element.style.maxHeight = `${newHeight}px`;
+    
+            if (progress < 1) {
+                requestAnimationFrame(descriptionAnimation);
+            }
+        };
+    
+        requestAnimationFrame(descriptionAnimation);
+    }
+    
+    
 
     /**
      * Handle mouseout event on work-helper elements
-     * @param {Event} event The mouseout event
-     * @param {HTMLElement} closestWork The closest .work element
      */
     handleMouseOut(event, closestWork, workHelper) {
         const workDescription = event.target.closest('.work').querySelector('.work-description');
@@ -60,6 +87,7 @@ export default class Resume {
         }
     }
 
+    
     /**
      * Move other works by the specified height offset
      */
@@ -73,6 +101,7 @@ export default class Resume {
         }
     }    
 
+
     /**
      * Display description, get its height and hide it again
      */
@@ -80,7 +109,12 @@ export default class Resume {
         const originalDisplay = workDescription.style.display;
         workDescription.style.display = 'block'; 
 
-        const height = workDescription.getBoundingClientRect().height;
+        let height = workDescription.dataset.height;
+
+        if (!height) {
+            height = workDescription.getBoundingClientRect().height;
+            workDescription.dataset.height = height;
+        }
 
         workDescription.style.display = originalDisplay;
 

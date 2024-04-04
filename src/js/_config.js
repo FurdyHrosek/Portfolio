@@ -3,6 +3,7 @@ export const progressAnimationDuration = 500;
 export const hackerEffectInterval = 35;
 
 export const workOriginalHeight = 120;
+export const workAnimationDuration = 200;
 
 export const skills = [
     ['HTML', '100%'],
