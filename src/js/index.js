@@ -11,11 +11,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const navigation = new Navigation();
 
     const aboutLink = document.querySelector('a.nav-link[href="#about"]');
-    aboutLink.addEventListener('click', function(e) {
+    aboutLink.addEventListener('click', function clickHandler(e) {
         e.preventDefault();
 
         if (!window.skillsLoaded) {
             Helpers.loadSection('about');
+            aboutLink.removeEventListener('click', clickHandler);
         }
     });
 });
