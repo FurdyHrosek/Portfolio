@@ -4,10 +4,26 @@ import { async } from 'regenerator-runtime';
 
 import '../scss/style.scss';
 
+import Helpers from './_helpers.js';
 import Navigation from './navigation.js';
-import Skills from './skills.js';
 
 document.addEventListener('DOMContentLoaded', function() {
     const navigation = new Navigation();
-    const skills = new Skills();
+
+    const aboutLink = document.querySelector('a.nav-link[href="#about"]');
+    aboutLink.addEventListener('click', function clickHandler(e) {
+        e.preventDefault();
+
+        if (!window.skillsLoaded) {
+            Helpers.loadSection('about');
+        }
+    });
+
+    const resumeLink = document.querySelector('a.nav-link[href="#resume"]');
+    resumeLink.addEventListener('click', function clickHandler(e) {
+        e.preventDefault();
+
+        Helpers.loadSection('resume');
+        resumeLink.removeEventListener('click', clickHandler);
+    })
 });

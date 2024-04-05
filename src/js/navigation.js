@@ -1,87 +1,185 @@
+import { homeAppearanceDelay, hackerEffectInterval } from './_config.js';
+
 export default class Header {
     constructor() {
-        this.handleNavigation();
+        this.navLinks = document.querySelectorAll('.nav-link');
+        this.sections = document.querySelectorAll('section');
+        this.header = document.querySelector('header');
+
+        this.isHomeSection = true;
+
+        this.setupNavigation();
+        this.scrollOnNavigationClick();
+        this.hackerEffect();
     }
 
-    handleNavigation() {
-        const navLinks = document.querySelectorAll('.nav-link');
-        const sections = document.querySelectorAll('section');
-        const header = document.querySelector('header');
+    /**
+     * Mouseover effect for nav links to show changing letters until they reach original text
+     */
+    hackerEffect() {
+        const letters = 'abcdefghijklmnopqrstuvwxyz'; 
+    
+        this.navLinks.forEach(navLink => {
+            navLink.addEventListener('mouseover', event => {
+                const isActiveLink = navLink.parentElement.classList.contains('active');
 
-        let isHomeSection = true;
-
-        sections.forEach(section => {
+                if (isActiveLink) return;
+                
+                let iterations = 0;
+    
+                if (!navLink.dataset.originalText) {
+                    navLink.dataset.originalText = navLink.innerText;
+                }
+    
+                const words = navLink.dataset.originalText.split(' ');
+                const initialWords = [...words]; 
+            
+                const interval = setInterval(() => {
+                    event.target.innerText = initialWords
+                        .map(word => {
+                            const slicedWord = word.slice(0, iterations);
+                            const randomLetters = Array.from({ length: word.length - iterations }, () => letters[Math.floor(Math.random() * 26)]);
+                            return slicedWord + randomLetters.join('');
+                        })
+                        .join(' ');
+            
+                    if (iterations >= words.reduce((acc, word) => acc + word.length, 0)) {
+                        clearInterval(interval);
+                    }
+            
+                    iterations += 1;
+                }, hackerEffectInterval);
+    
+                navLink.addEventListener('mouseleave', () => {
+                    clearInterval(interval);
+                    event.target.innerText = navLink.dataset.originalText;
+                });
+            });
+        });
+    }
+    
+    /**
+     * Scroll to top on nav link click
+     */
+    scrollOnNavigationClick() {
+        this.navLinks.forEach(navLink => {
+            navLink.addEventListener('click', (event) => {
+                event.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    }
+    
+    
+    /**
+     * Setup navigation
+     */
+    setupNavigation() {
+        this.sections.forEach(section => {
             section.style.display = 'none';
         });
 
-        const removeActiveClass = () => {
-            navLinks.forEach(navLink => {
-                navLink.parentElement.classList.remove('active');
-            });
-        };
-
-        const addActiveClass = (link) => {
-            link.parentElement.classList.add('active');
-        };
-
-        const addShownClass = (section) => {
-            if (isHomeSection) {
-                setTimeout(() => {
-                    section.classList.add('shown');
-                }, 300);
-            } else {
-                section.classList.add('shown');
-            }
-        };
-
-        const removeShownClass = (section, delay = 0) => {
-            if (isHomeSection) {
-                setTimeout(() => {
-                    section.classList.remove('shown');
-                }, delay);
-            } else {
-                section.classList.remove('shown');
-            }
-        };
-
-        navLinks.forEach(navLink => {
+        this.navLinks.forEach(navLink => {
             navLink.addEventListener('click', (e) => {
                 e.preventDefault();
-
-                const targetSectionId = navLink.getAttribute('href').substring(1);
-
-                sections.forEach(section => {
-                    section.style.display = 'none';
-                    removeShownClass(section);
-                });
-
-                const targetSection = document.getElementById(targetSectionId);
-
-                if (targetSection) {
-                    targetSection.style.display = 'block';
-                    addShownClass(targetSection);
-                    header.classList.toggle('header-top', targetSectionId !== 'home');
-
-                    removeActiveClass();
-                    addActiveClass(navLink);
-                    isHomeSection = navLink === homeLink;
-                }
+                this.handleNavigationClick(navLink);
             });
         });
 
         const homeLink = document.querySelector('.nav-link[href="#home"]');
-
         homeLink.addEventListener('click', (e) => {
             e.preventDefault();
-            header.classList.remove('header-top');
-            removeActiveClass();
-            addActiveClass(homeLink);
-
-            sections.forEach(section => {
-                removeShownClass(section, 300);
-            });
-            
-            isHomeSection = true;
+            this.handleHomeLinkClick(homeLink);
         });
+    }
+
+
+    /**
+     * Handle click on any navigation link
+     */
+    handleNavigationClick(navLink) {
+        const targetSectionID = navLink.getAttribute('href').substring(1);
+        this.hideAllSections(homeAppearanceDelay);
+        
+        const targetSection = document.getElementById(targetSectionID);
+        
+        if (targetSection) {
+            this.showSection(targetSection);
+            this.toggleHeaderTopClass(targetSectionID);
+            this.removeActiveClass();
+            this.addActiveClass(navLink);
+            this.isHomeSection = navLink === document.querySelector('.nav-link[href="#home"]');
+        }
+    }
+
+
+    /**
+     * Handle click on home link
+     */
+    handleHomeLinkClick(homeLink) {
+        this.header.classList.remove('header-top');
+        this.removeActiveClass();
+        this.addActiveClass(homeLink);
+        this.hideAllSections(homeAppearanceDelay);
+        this.isHomeSection = true;
+    }
+
+
+    /**
+     * Show or Hide all sections
+     */
+    hideAllSections(delayTime) {
+        this.sections.forEach(section => {
+            section.style.display = 'none';
+            this.removeShownClass(section, delayTime);
+        });
+    }
+
+    showSection(section) {
+        section.style.display = 'block';
+        this.addShownClass(section, homeAppearanceDelay);
+    }
+
+
+    /**
+     * Toggle header-top class for header
+     */
+    toggleHeaderTopClass(targetSectionId) {
+        this.header.classList.toggle('header-top', targetSectionId !== 'home');
+    }
+
+
+    /**
+     * Handle active class for current active nav link
+     */
+    removeActiveClass() {
+        this.navLinks.forEach(navLink => {
+            navLink.parentElement.classList.remove('active');
+        });
+    }
+
+    addActiveClass(link) {
+        link.parentElement.classList.add('active');
+    }
+
+
+    /**
+     * Handle shown class for current active section
+     */
+    removeShownClass(section, delayTime = 0) {
+        const delay = this.isHomeSection ? delayTime : 0;
+        setTimeout(() => {
+            section.classList.remove('shown');
+        }, delay);
+    }
+
+    addShownClass(section, delayTime) {
+        const delay = this.isHomeSection ? delayTime : 0;
+        setTimeout(() => {
+            section.classList.add('shown');
+        }, delay);
     }
 }

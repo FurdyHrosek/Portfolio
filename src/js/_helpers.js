@@ -16,6 +16,7 @@ export default class Helpers {
    * @param {string} [options.value]
    * @param {string} [options.style]
    * @param {Object.<string, string>} [options.attributes] - An object containing additional attributes to set for the element.
+   * @param {Object.<string, string>} [options.dataset] - An object containing additional dataset to set for the element.
    * @returns {HTMLElement} The created DOM element.
    */
   createDOMElement = (elementType, options) => {
@@ -49,4 +50,21 @@ export default class Helpers {
 
     return element;
   };
+
+
+    /**
+     * Loads a section script dynamically.
+     *
+     * @param {string} sectionName - The name of the section script to load.
+     */
+    static async loadSection(sectionName) {
+      try {
+          const module = await import(`./${sectionName}.js`);
+          const Section = module.default;
+          new Section();
+          window[sectionName + 'Loaded'] = true;
+      } catch (error) {
+          console.error(`Error loading ${sectionName} script:`, error);
+      }
+  }
 }
