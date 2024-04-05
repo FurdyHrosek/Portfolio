@@ -74,6 +74,7 @@
         
         &.visible {
           opacity: 1 !important;
+          z-index: 99;
 
           &#work-content {
             left: $resume-tree-offset * 5 !important;
