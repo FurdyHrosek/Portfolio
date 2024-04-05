@@ -4,6 +4,7 @@ export default class Resume {
     constructor() {
         this.works = document.querySelectorAll('.work');
         this.workHelpers = document.querySelectorAll('.work-helper');
+        this.workPositions = document.querySelectorAll('.work-position');
 
         this.handleInfoboxParity();
         this.setupWorkHelpers();
@@ -25,6 +26,19 @@ export default class Resume {
                 this.handleMouseOut(event, closestWork, workHelper);
             });
         });
+
+        this.workPositions.forEach(workPosition => {
+            const closestWork = workPosition.closest('.work');
+            const closestWorkHelper = closestWork.querySelector('.work-helper')
+
+            workPosition.addEventListener('mouseover', event => {
+                this.handleMouseOver(event, closestWork, closestWorkHelper);
+            });
+
+            workPosition.addEventListener('mouseout', event => {
+                this.handleMouseOut(event, closestWork, closestWorkHelper);
+            });
+        })
     }
 
 
@@ -32,29 +46,33 @@ export default class Resume {
      * Handle mouseover event on work-helper elements
      */
     handleMouseOver(event, closestWork, workHelper) {
-        const workDescription = event.target.closest('.work').querySelector('.work-description');
-        const workDescriptionWrapper = workDescription.querySelector('.work-description-wrapper');
-        const workDescriptionHeight = this.getWorkDescriptionHeight(workDescription);
-    
-        if (workDescription) {
-            workDescription.style.display = 'block';
-    
-            const offset = this.calculateWorkOffset(closestWork, workDescriptionHeight);
+        const workDesc = event.target.closest('.work').querySelector('.work-description');
+        const workDescWrapper = workDesc.querySelector('.work-description-wrapper');
 
-            workDescriptionWrapper.style.maxHeight = '0';
-            workDescriptionWrapper.style.overflow = 'hidden';
+        const workDescHeight = this.getWorkDescriptionHeight(workDesc);
+    
+        if (workDesc) {
+            workDesc.style.display = 'block';
+    
+            const offset = this.calculateWorkOffset(closestWork, workDescHeight);
+
+            workDescWrapper.style.maxHeight = '0';
+            workDescWrapper.style.overflow = 'hidden';
     
             const newHeight = offset > 0 ? workOriginalHeight + offset : workOriginalHeight;
             workHelper.style.setProperty('--work-helper-height', newHeight + 'px');
 
-            const workDescScrollHeight = workDescriptionWrapper.scrollHeight;
-            this.startDescriptionAnimation(workDescriptionWrapper, workDescScrollHeight, workAnimationDuration);
+            const workDescScrollHeight = workDescWrapper.scrollHeight;
+            this.startDescriptionAnimation(workDescWrapper, workDescScrollHeight, workAnimationDuration);
     
             this.moveUpcomingWorks(offset, closestWork);
         }
     }
     
-    
+
+    /**
+     * Start animation for work description to slowly appear from top
+     */
     startDescriptionAnimation(element, targetHeight, duration) {
         const startTime = performance.now();
     
@@ -74,7 +92,6 @@ export default class Resume {
     }
     
     
-
     /**
      * Handle mouseout event on work-helper elements
      */

@@ -74,6 +74,10 @@
             .work-description {
               left: calc($resume-infobox-gap + 10px);
             }
+            .work-position {
+              padding-right: $resume-infobox-gap;
+              transform: translateX($resume-infobox-gap);
+            }
           }
           &.odd {
             .work-infobox {
@@ -83,6 +87,10 @@
             }
             .work-description {
               right: $resume-infobox-gap;
+            }
+            .work-position {
+              padding-left: $resume-infobox-gap;
+              transform: translateX(-$resume-infobox-gap);
             }
           }
 
@@ -124,6 +132,7 @@
               width: 100%;
               font-size: 18px;
               color: $color-border;
+              cursor: pointer;
               text-transform: uppercase;
             }
             .work-company {
