@@ -18,7 +18,7 @@ const init = () => {
     initAboutSection(aboutLink);
 
     initSection(resumeLink, 'resume');
-    initSection(contactLink, 'contact', !window.skillsLoaded, true);
+    initSection(contactLink, 'contact');
 }
 
 document.addEventListener('DOMContentLoaded', () => init());

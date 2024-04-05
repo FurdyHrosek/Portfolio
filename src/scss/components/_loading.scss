@@ -1,0 +1,58 @@
+@keyframes animateBg {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+    100% {
+        filter: hue-rotate(0deg);
+    }
+}
+
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: animateBg 10s linear infinite;
+    
+    .loading-circle {
+        position: relative;
+        width: 24px;
+        height: 24px;
+
+        span {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: rotate(calc(18deg * var(--i)));
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 3px;
+                height: 3px;
+                border-radius: 50%;
+                background: rgb(255, 0, 0);
+                box-shadow: 0 0 1px rgb(255, 0, 0),
+                            0 0 2px rgb(255, 0, 0),
+                            0 0 4px rgb(255, 0, 0),
+                            0 0 6px rgb(255, 0, 0),
+                            0 0 8px rgb(255, 0, 0),
+                            0 0 10px rgb(255, 0, 0);
+                animation: animate 0.5s linear infinite;
+                animation-delay: calc(0.025s * var(--i));
+            }
+        }
+    }
+}
+
+@keyframes animate {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
+}

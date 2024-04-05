@@ -1,6 +1,4 @@
 const path = require('path');
-const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
-const webpackNodeExternals = require('webpack-node-externals');
 
 module.exports = {
   mode: 'development',
@@ -18,13 +16,7 @@ module.exports = {
       context: ['/'],
       target: 'http://localhost:80'
     }],
-    watchContentBase: true, // Watch HTML files for changes
   }, 
-  externalsPresets: { node: true },
-  externals: [webpackNodeExternals()],
-  plugins: [
-    new NodePolyfillPlugin()
-  ],
   module: {
     rules: [
       {

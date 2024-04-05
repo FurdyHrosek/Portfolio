@@ -52,19 +52,48 @@ export default class Helpers {
   };
 
 
-    /**
-     * Loads a section script dynamically.
-     *
-     * @param {string} sectionName - The name of the section script to load.
-     */
-    static async loadSection(sectionName) {
-      try {
-          const module = await import(`./${sectionName}.js`);
-          const Section = module.default;
-          new Section();
-          window[sectionName + 'Loaded'] = true;
-      } catch (error) {
-          console.error(`Error loading ${sectionName} script:`, error);
-      }
+  /**
+   * Loads a section script dynamically.
+   *
+   * @param {string} sectionName - The name of the section script to load.
+   */
+  static async loadSection(sectionName) {
+    try {
+        const module = await import(`./${sectionName}.js`);
+        const Section = module.default;
+        new Section();
+        window[sectionName + 'Loaded'] = true;
+    } catch (error) {
+        console.error(`Error loading ${sectionName} script:`, error);
+    }
   }
+
+
+  /**
+   * Creates loading circle.
+   *
+   * @param {element} reference - The reference element before which is the loading circle inserted
+   */
+  createLoadingCircle = (reference) => {
+    const loader = this.createDOMElement('tr', {
+      classes: ['loader']
+    })
+
+    const loadingCircle = this.createDOMElement('td', {
+      classes: ['loading-circle']
+    });
+    loader.appendChild(loadingCircle);
+
+    for (let i = 1; i <= 20; i++) {
+      const styleSpan = this.createDOMElement('span', {
+        style: `--i:${i};`
+      });
+      loadingCircle.appendChild(styleSpan);
+    }
+
+    reference.parentNode.insertBefore(loader, reference);
+
+    return loader;
+  };
+
 }
