@@ -66,10 +66,10 @@
         transition: all 0.15s ease-in-out 0s;
 
         &#work-content {
-          right: $resume-tree-offset;
+          left: $resume-tree-offset;
         }
         &#education-content {
-          left: $resume-tree-offset;
+          left: -$resume-tree-offset;
         }
         
         &.visible {
