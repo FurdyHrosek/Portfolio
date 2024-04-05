@@ -5,7 +5,7 @@
     
     .resume-buttons {
       display: flex;
-      margin-top: 50px;
+      margin-top: 30px;
 
       .resume-btn {
         position: absolute;
@@ -15,7 +15,6 @@
         background-color: $color-background-black;
         color: $color-font-primary;
         border: 0;
-        border-color: $color-border;
 
         cursor: pointer;
         text-transform: uppercase;
@@ -24,160 +23,236 @@
 
         &.work-btn {
           right: calc(50% + $resume-buttons-gap);
+          border-color: $color-border;
+
+          &:hover {
+            border-bottom: 1px solid $color-border;
+          }
+  
+          &.active {
+            border-bottom: 1px solid $color-border;
+            background-color: $color-background-black;
+          }
         }
+
         &.educ-btn {
           left: calc(50% + $resume-buttons-gap);
-        }
+          border-color:  $color-purple-primary;
 
-        &:hover {
-          border-bottom: 1px solid $color-border;
-        }
-
-        &.active {
-          border-bottom: 1px solid $color-border;
-          background-color: $color-background-black;
+          &:hover {
+            border-bottom: 1px solid  $color-purple-primary;
+          }
+  
+          &.active {
+            border-bottom: 1px solid  $color-purple-primary;
+            background-color: $color-background-black;
+          }
         }
       }
     }
 
-    .work-content {
+    .resume-trees {
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      flex-direction: row;
 
-      width: 100%;
-      margin-top: 100px;
+      transition: all 0.15s ease-in-out 0s;
 
-      .work-wrapper {
-        &:last-child {
-          .work {
-            &:last-child {
-              .work-helper {
-                &::after {
-                  display: none;
+      .tree-content {
+        display: flex;
+        position: relative;
+
+        opacity: 0;
+
+        transition: all 0.15s ease-in-out 0s;
+
+        &#work-content {
+          right: $resume-tree-offset;
+        }
+        &#education-content {
+          left: $resume-tree-offset;
+        }
+        
+        &.visible {
+          opacity: 1 !important;
+
+          &#work-content {
+            left: $resume-tree-offset * 5 !important;
+            right: -$resume-tree-offset * 5 !important;
+          }
+          &#education-content {
+            left: -$resume-tree-offset * 5 !important;
+            right: $resume-tree-offset * 5 !important;
+          }
+        }
+  
+        flex-direction: column;
+        align-items: center;
+  
+        width: 100%;
+        margin-top: 110px;
+        transition: $trans;
+  
+        .tree-wrapper {
+          &:last-child {
+            .tree {
+              &:last-child {
+                .tree-helper {
+                  &::after {
+                    display: none;
+                  }
                 }
               }
             }
           }
-        }
-        .work {
-          position: relative;
-          margin-bottom: $resume-work-gap;
-          transition: $trans;
-
-          &.even {
-            .work-infobox {
-              right: $resume-infobox-gap;
-              text-align: right;
-              align-items: flex-end;
-            }
-            .work-description {
-              left: calc($resume-infobox-gap + 10px);
-            }
-            .work-position {
-              padding-right: $resume-infobox-gap;
-              transform: translateX($resume-infobox-gap);
-            }
-          }
-          &.odd {
-            .work-infobox {
-              left: $resume-infobox-gap;
-              text-align: left;
-              align-items: flex-start;
-            }
-            .work-description {
-              right: $resume-infobox-gap;
-            }
-            .work-position {
-              padding-left: $resume-infobox-gap;
-              transform: translateX(-$resume-infobox-gap);
-            }
-          }
-
-          .work-helper {
-            display: block;
-            width: 20px;
-            height: 20px;
-            background-color: $color-border;
-            border-radius: 100%;
-
-            cursor: pointer;
-
-            &::after {
-              content: '';
-              display: block;
-              position: relative;
-              top: 100%;
-              left: calc(50% - 1px);
-              
-              width: 1px;
-              height: var(--work-helper-height, $resume-work-gap);
-
-              pointer-events: none;
-              background-color: $color-border;
-              transition: $trans;
-            }
-          }
-          .work-infobox {
-            display: flex;
-            flex-direction: column;
-
-            position: absolute;
-            top: 0;
-
-            width: max-content;
-            gap: 10px 0;
-
-            .work-position {
-              width: 100%;
-              font-size: 18px;
-              color: $color-border;
-              cursor: pointer;
-              text-transform: uppercase;
-            }
-            .work-company {
-              width: 100%;
-              font-size: 15px;
-              color: $color-font-primary;
-            }
-            .work-period {
-              display: flex;
-              justify-content: center;
-              align-items: center;
-
-              width: max-content;
-              padding: 8px 10px;
-              margin-top: 8px;
-
-              background-color: $color-work-period;
-              font-size: 15px;
-            }
-          }
-          .work-description {
-            display: none;
-            position: absolute;
-            height: max-content;
-            top: 0;
-            margin: 0;
-            padding: 0;
+          .tree {
+            position: relative;
+            margin-bottom: $resume-work-gap;
             transition: $trans;
-            z-index: 99;
-
-            &-wrapper {
-              margin-bottom: 30px;
-
-              > h3 {
-                margin-top: 0;
+  
+            &.even {
+              .tree-infobox {
+                right: $resume-infobox-gap;
+                text-align: right;
+                align-items: flex-end;
               }
-
-              h3 {
+  
+              .work-description {
+                left: calc($resume-infobox-gap + 10px);
+              }
+              .work-position {
+                padding-right: $resume-infobox-gap;
+                transform: translateX($resume-infobox-gap);
+              }
+            }
+            &.odd {
+              .tree-infobox {
+                left: $resume-infobox-gap;
+                text-align: left;
+                align-items: flex-start;
+              }
+  
+              .work-description {
+                right: $resume-infobox-gap;
+              }
+              .work-position {
+                padding-left: $resume-infobox-gap;
+                transform: translateX(-$resume-infobox-gap);
+              }
+            }
+  
+            .tree-helper {
+              display: block;
+              width: 20px;
+              height: 20px;
+              border-radius: 100%;
+  
+              &.work-helper {
+                cursor: pointer;
+                background-color: $color-border;
+                &::after {
+                  background-color: $color-border;
+                }
+              }
+              &.edu-helper {
+                background-color: $color-purple-primary;
+                &::after {
+                  background-color: $color-purple-primary;
+                }
+              }
+  
+              &::after {
+                content: '';
+                display: block;
+                position: relative;
+                top: 100%;
+                left: calc(50% - 1px);
+                
+                width: 1px;
+                height: var(--work-helper-height, $resume-work-gap);
+  
+                pointer-events: none;
+                transition: $trans;
+              }
+            }
+            .tree-infobox {
+              display: flex;
+              flex-direction: column;
+  
+              position: absolute;
+              top: 0;
+  
+              width: max-content;
+              gap: 10px 0;
+  
+              .work-position {
+                width: 100%;
+                font-size: 18px;
+                color: $color-border;
+                cursor: pointer;
                 text-transform: uppercase;
               }
   
-              li {
+              .work-company,
+              .edu-field {
+                width: 100%;
+                font-size: 15px;
+                color: $color-font-primary;
+              }
+  
+              .edu-data-wrap {
+                display: flex;
+                flex-direction: row;
+                gap: 10px;
+              }
+  
+              .work-period,
+              .edu-period,
+              .edu-status {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+  
                 width: max-content;
-                max-width: 400px;
-                margin-left: 16px;
+                padding: 8px 10px;
+                margin-top: 8px;
+  
+                background-color: $color-work-period;
+                font-size: 15px;
+                text-transform: uppercase;
+              }
+  
+              .edu-school {
+                width: 100%;
+                font-size: 18px;
+                color:  $color-purple-primary;
+                text-transform: uppercase;
+              }
+            }
+            .work-description {
+              display: none;
+              position: absolute;
+              height: max-content;
+              top: 0;
+              margin: 0;
+              padding: 0;
+              z-index: 99;
+  
+              &-wrapper {
+                margin-bottom: 30px;
+  
+                > h3 {
+                  margin-top: 0;
+                }
+  
+                h3 {
+                  text-transform: uppercase;
+                }
+    
+                li {
+                  width: max-content;
+                  max-width: 400px;
+                  margin-left: 16px;
+                }
               }
             }
           }

@@ -2,10 +2,9 @@ import { workOriginalHeight, workAnimationDuration } from './_config.js';
 
 export default class Resume {
     constructor() {
-        this.works = document.querySelectorAll('.work');
-        this.workHelpers = document.querySelectorAll('.work-helper');
-        this.workPositions = document.querySelectorAll('.work-position');
+        this.trees = document.querySelectorAll('.tree');
 
+        this.handleVisibleTree();
         this.handleInfoboxParity();
         this.setupWorkHelpers();
     }
@@ -15,8 +14,9 @@ export default class Resume {
      * Setup hover effect on work-helper elements
      */
     setupWorkHelpers() {
-        this.workHelpers.forEach(workHelper => {
-            const closestWork = workHelper.closest('.work');
+        const treeHelpers = document.querySelectorAll('.tree-helper');
+        treeHelpers.forEach(workHelper => {
+            const closestWork = workHelper.closest('.tree');
 
             workHelper.addEventListener('mouseover', event => {
                 this.handleMouseOver(event, closestWork, workHelper);
@@ -27,9 +27,10 @@ export default class Resume {
             });
         });
 
-        this.workPositions.forEach(workPosition => {
-            const closestWork = workPosition.closest('.work');
-            const closestWorkHelper = closestWork.querySelector('.work-helper')
+        const workPositions = document.querySelectorAll('.work-position');
+        workPositions.forEach(workPosition => {
+            const closestWork = workPosition.closest('.tree');
+            const closestWorkHelper = closestWork.querySelector('.tree-helper')
 
             workPosition.addEventListener('mouseover', event => {
                 this.handleMouseOver(event, closestWork, closestWorkHelper);
@@ -46,27 +47,28 @@ export default class Resume {
      * Handle mouseover event on work-helper elements
      */
     handleMouseOver(event, closestWork, workHelper) {
-        const workDesc = event.target.closest('.work').querySelector('.work-description');
+        const workDesc = event.target.closest('.tree').querySelector('.work-description');
+
+        if (!workDesc) return;
+
         const workDescWrapper = workDesc.querySelector('.work-description-wrapper');
 
         const workDescHeight = this.getWorkDescriptionHeight(workDesc);
     
-        if (workDesc) {
-            workDesc.style.display = 'block';
-    
-            const offset = this.calculateWorkOffset(closestWork, workDescHeight);
+        workDesc.style.display = 'block';
 
-            workDescWrapper.style.maxHeight = '0';
-            workDescWrapper.style.overflow = 'hidden';
-    
-            const newHeight = offset > 0 ? workOriginalHeight + offset : workOriginalHeight;
-            workHelper.style.setProperty('--work-helper-height', newHeight + 'px');
+        const offset = this.calculateWorkOffset(closestWork, workDescHeight);
 
-            const workDescScrollHeight = workDescWrapper.scrollHeight;
-            this.startDescriptionAnimation(workDescWrapper, workDescScrollHeight, workAnimationDuration);
-    
-            this.moveUpcomingWorks(offset, closestWork);
-        }
+        workDescWrapper.style.maxHeight = '0';
+        workDescWrapper.style.overflow = 'hidden';
+
+        const newHeight = offset > 0 ? workOriginalHeight + offset : workOriginalHeight;
+        workHelper.style.setProperty('--work-helper-height', newHeight + 'px');
+
+        const workDescScrollHeight = workDescWrapper.scrollHeight;
+        this.startDescriptionAnimation(workDescWrapper, workDescScrollHeight, workAnimationDuration);
+
+        this.moveUpcomingWorks(offset, closestWork);
     }
     
 
@@ -96,7 +98,7 @@ export default class Resume {
      * Handle mouseout event on work-helper elements
      */
     handleMouseOut(event, closestWork, workHelper) {
-        const workDescription = event.target.closest('.work').querySelector('.work-description');
+        const workDescription = event.target.closest('.tree').querySelector('.work-description');
         if (workDescription) {
             workDescription.style.display = 'none';
             workHelper.style.setProperty('--work-helper-height', workOriginalHeight + 'px');
@@ -109,10 +111,10 @@ export default class Resume {
      * Move other works by the specified height offset
      */
     moveUpcomingWorks(offset, currentWork) {
-        const currentIndex = [...this.works].indexOf(currentWork);
+        const currentIndex = [...this.trees].indexOf(currentWork);
     
-        for (let i = currentIndex + 1; i < this.works.length; i++) {
-            const work = this.works[i];
+        for (let i = currentIndex + 1; i < this.trees.length; i++) {
+            const work = this.trees[i];
             const translateY = offset > 0 ? `translateY(${offset}px)` : '';
             work.style.transform = translateY;
         }
@@ -146,7 +148,7 @@ export default class Resume {
         let foundCurrentWork = false;
         let offset = 0;
 
-        this.works.forEach(work => {
+        this.trees.forEach(work => {
             (!foundCurrentWork && work === currentWork)
                 ? foundCurrentWork = true
                 : offset = descHeight - workOriginalHeight;
@@ -160,7 +162,33 @@ export default class Resume {
      * Add even or odd class to infoboxes
      */
     handleInfoboxParity() {
-        this.works.forEach((infobox, index) => 
+        this.trees.forEach((infobox, index) => 
             infobox.classList.add(index % 2 === 0 ? 'even' : 'odd'));
+    }
+
+
+    /**
+     * Handle visible tree class based on clicked tree button
+     */
+    handleVisibleTree() {
+        const resumeButtons = document.querySelectorAll('.resume-btn');
+        const treeContents = document.querySelectorAll('.tree-content');
+    
+        resumeButtons.forEach(button => {
+            button.addEventListener('click', event => {
+                const targetId = event.target.getAttribute('data-target');
+                if (targetId) {
+                    resumeButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    event.target.classList.add('active');
+                    
+                    treeContents.forEach(content => {
+                        content.classList.remove('visible');
+                    });
+                    document.getElementById(targetId).classList.add('visible');
+                }
+            });
+        });
     }
 }
