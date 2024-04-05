@@ -96,6 +96,8 @@
 
 
 				&.active {
+					pointer-events: none;
+					
 					&::before {
 						visibility: visible;
     					width: 25px;

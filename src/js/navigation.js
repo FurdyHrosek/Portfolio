@@ -9,6 +9,7 @@ export default class Header {
         this.isHomeSection = true;
 
         this.setupNavigation();
+        this.scrollOnNavigationClick();
         this.hackerEffect();
     }
 
@@ -57,7 +58,20 @@ export default class Header {
         });
     }
     
-    
+    /**
+     * Scroll to top on nav link click
+     */
+    scrollOnNavigationClick() {
+        this.navLinks.forEach(navLink => {
+            navLink.addEventListener('click', (event) => {
+                event.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    }
     
     
     /**

@@ -2,26 +2,40 @@
   &-container {
     display: flex;
     flex-direction: column;
-
+    
     .resume-buttons {
       display: flex;
-      justify-content: center;
-      gap: 40px;
       margin-top: 50px;
 
       .resume-btn {
-        width: 200px;
+        position: absolute;
+        width: max-content;
         padding: 10px;
-        background-color: $color-background-icon;
-        color: $color-border;
 
-        border: 1px solid $color-border;
+        background-color: $color-background-black;
+        color: $color-font-primary;
+        border: 0;
+        border-color: $color-border;
+
         cursor: pointer;
         text-transform: uppercase;
+        letter-spacing: 3px;
         transition: $trans;
 
+        &.work-btn {
+          right: calc(50% + $resume-buttons-gap);
+        }
+        &.educ-btn {
+          left: calc(50% + $resume-buttons-gap);
+        }
+
         &:hover {
-          background-color: $color-background-icon-hover;
+          border-bottom: 1px solid $color-border;
+        }
+
+        &.active {
+          border-bottom: 1px solid $color-border;
+          background-color: $color-background-black;
         }
       }
     }
@@ -108,13 +122,13 @@
 
             .work-position {
               width: 100%;
-              font-size: 16px;
+              font-size: 18px;
               color: $color-border;
               text-transform: uppercase;
             }
             .work-company {
               width: 100%;
-              font-size: 14px;
+              font-size: 15px;
               color: $color-font-primary;
             }
             .work-period {
@@ -127,6 +141,7 @@
               margin-top: 8px;
 
               background-color: $color-work-period;
+              font-size: 15px;
             }
           }
           .work-description {
@@ -144,6 +159,10 @@
 
               > h3 {
                 margin-top: 0;
+              }
+
+              h3 {
+                text-transform: uppercase;
               }
   
               li {
