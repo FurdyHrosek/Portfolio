@@ -14,3 +14,4 @@ services:
       - ./webpack.config.js:/app/webpack.config.js
       - ./package.json:/app/package.json
       - ./.babelrc:/app/.babelrc
+      - ./.babelrc:/app/.babel.config.js

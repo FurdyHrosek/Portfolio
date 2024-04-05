@@ -8,14 +8,14 @@
             background-image: url('/assets/icons/libraries/sass.png');
         }
     }
-    &#jquery {
-        &::before {
-            background-image: url('/assets/icons/libraries/jquery.svg');
-        }
-    }
     &#webpack {
         &::before {
             background-image: url('/assets/icons/libraries/webpack.svg');
+        }
+    }
+    &#jquery {
+        &::before {
+            background-image: url('/assets/icons/libraries/jquery.svg');
         }
     }
 }
@@ -28,57 +28,67 @@
 .tool {
     &#vscode {
         &::before {
-            background-image: url('/assets/icons/skills/vscode.png');
+            background-image: url('/assets/icons/tools/vscode.png');
         }
     }
     &#webstorm {
         &::before {
-            background-image: url('/assets/icons/skills/webstorm.svg');
+            background-image: url('/assets/icons/tools/webstorm.svg');
         }
     }
     &#unity {
         &::before {
-            background-image: url('/assets/icons/skills/unity.svg');
+            background-image: url('/assets/icons/tools/unity.svg');
         }
     }
-    &#git {
+    &#chatgpt {
         &::before {
-            background-image: url('/assets/icons/skills/git.svg');
-        }
-    }
-    &#figma {
-        &::before {
-            background-image: url('/assets/icons/skills/figma.svg');
-        }
-    }
-    &#docker {
-        &::before {
-            background-image: url('/assets/icons/skills/docker.png');
-        }
-    }
-    &#xampp {
-        &::before {
-            background-image: url('/assets/icons/skills/xampp.png');
-        }
-    }
-    &#filezilla {
-        &::before {
-            background-image: url('/assets/icons/skills/filezilla.png');
+            background-image: url('/assets/icons/tools/gpt.svg');
         }
     }
     &#shoptet {
         &::before {
-            background-image: url('/assets/icons/skills/shoptet.png');
+            background-image: url('/assets/icons/tools/shoptet.png');
+        }
+    }
+    &#github {
+        &::before {
+            background-image: url('/assets/icons/tools/github.png');
+        }
+    }
+    &#git {
+        &::before {
+            background-image: url('/assets/icons/tools/git.svg');
+        }
+    }
+    &#figma {
+        &::before {
+            background-image: url('/assets/icons/tools/figma.png');
+        }
+    }
+    &#docker {
+        &::before {
+            background-image: url('/assets/icons/tools/docker.png');
+        }
+    }
+    &#xampp {
+        &::before {
+            background-image: url('/assets/icons/tools/xampp.png');
+        }
+    }
+    &#filezilla {
+        &::before {
+            background-image: url('/assets/icons/tools/filezilla.png');
         }
     }
     &#jira {
         &::before {
-            background-image: url('/assets/icons/skills/jira.svg');
+            background-image: url('/assets/icons/tools/jira.svg');
         }
     }
     &#salesforce {
         &::before {
-            background-image: url('/assets/icons/skills/salesforce.png');
+            background-image: url('/assets/icons/tools/salesforce.png');
         }
     }
 }
@@ -111,7 +121,7 @@
     }
     &#int-games {
         &::before {
-            background-image: url('/assets/icons/interests/games.svg');
+            background-image: url('/assets/icons/interests/games.png');
         }
     }
     &#int-computers {

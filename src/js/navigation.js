@@ -58,6 +58,7 @@ export default class Header {
         });
     }
     
+    
     /**
      * Scroll to top on nav link click
      */

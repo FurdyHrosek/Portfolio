@@ -6,14 +6,14 @@ export default class Resume {
 
         this.handleVisibleTree();
         this.handleInfoboxParity();
-        this.setupWorkHelpers();
+        this.setupTreeHelpers();
     }
 
 
     /**
      * Setup hover effect on work-helper elements
      */
-    setupWorkHelpers() {
+    setupTreeHelpers() {
         const treeHelpers = document.querySelectorAll('.tree-helper');
         treeHelpers.forEach(workHelper => {
             const closestWork = workHelper.closest('.tree');

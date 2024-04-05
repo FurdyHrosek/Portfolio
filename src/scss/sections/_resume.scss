@@ -66,14 +66,15 @@
         transition: all 0.15s ease-in-out 0s;
 
         &#work-content {
-          right: $resume-tree-offset;
+          left: $resume-tree-offset;
         }
         &#education-content {
-          left: $resume-tree-offset;
+          left: -$resume-tree-offset;
         }
         
         &.visible {
           opacity: 1 !important;
+          z-index: 99;
 
           &#work-content {
             left: $resume-tree-offset * 5 !important;
@@ -187,6 +188,7 @@
               .work-position {
                 width: 100%;
                 font-size: 18px;
+                font-weight: 600;
                 color: $color-border;
                 cursor: pointer;
                 text-transform: uppercase;
