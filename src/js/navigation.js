@@ -38,7 +38,8 @@ export default class Header {
                     event.target.innerText = initialWords
                         .map(word => {
                             const slicedWord = word.slice(0, iterations);
-                            const randomLetters = Array.from({ length: word.length - iterations }, () => letters[Math.floor(Math.random() * 26)]);
+                            const randomLetters = Array.from({ length: word.length - iterations }, 
+                                () => letters[Math.floor(Math.random() * 26)]);
                             return slicedWord + randomLetters.join('');
                         })
                         .join(' ');

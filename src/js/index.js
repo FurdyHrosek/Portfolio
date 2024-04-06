@@ -13,11 +13,13 @@ const init = () => {
 
     const aboutLink = document.querySelector('a.nav-link[href="#about"]');
     const resumeLink = document.querySelector('a.nav-link[href="#resume"]');
+    const portfolioLink = document.querySelector('a.nav-link[href="#portfolio"]');
     const contactLink = document.querySelector('a.nav-link[href="#contact"]');
 
     initAboutSection(aboutLink);
 
     initSection(resumeLink, 'resume');
+    initSection(portfolioLink, 'portfolio');
     initSection(contactLink, 'contact');
 }
 
