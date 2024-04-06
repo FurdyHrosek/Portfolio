@@ -12,28 +12,31 @@
 	<script src="https://smtpjs.com/v3/smtp.js"></script>
 	<script src="dist/js/bundle.js"></script>
 
-	<header id="header">
-		<div class="container">
-			<h1 class="my-name">Martin Houdek</h1>
-			<h2 class="my-title">Passionate and creative <span class="profession">front-end developer</span> from Prague</h2>
-			<nav class="navigation">
-				<ul>
-					<li class="active"><a class="nav-link" href="#home">Home</a></li>
-					<li><a class="nav-link" href="#about">About</a></li>
-					<li><a class="nav-link" href="#resume">Resume</a></li>
-					<li><a class="nav-link" href="#portfolio">Portfolio</a></li>
-					<li><a class="nav-link" href="#contact">Contact</a></li>
-				</ul>
-			</nav>
-			<div class="social-links">
-				<a href="#" class="github"></a>
-				<a href="#" class="linked-in"></a>
-			</div>
-		</div>
-	</header>
-
+	<!-- ======= Page Content ======= -->
 	<div class="content-wrapper">
+		<!-- ======= Header ======= -->
+		<header id="header">
+			<div class="container">
+				<h1 class="my-name">Martin Houdek</h1>
+				<h2 class="my-title">Passionate and creative <span class="profession">front-end developer</span> from Prague</h2>
+				<nav class="navigation">
+					<ul>
+						<li class="active"><a class="nav-link" href="#home">Home</a></li>
+						<li><a class="nav-link" href="#about">About</a></li>
+						<li><a class="nav-link" href="#resume">Resume</a></li>
+						<li><a class="nav-link" href="#portfolio">Portfolio</a></li>
+						<li><a class="nav-link" href="#contact">Contact</a></li>
+					</ul>
+				</nav>
+				<div class="social-links">
+					<a href="#" class="github"></a>
+					<a href="#" class="linked-in"></a>
+				</div>
+			</div>
+		</header>
+		<!-- End Header -->
 
+		<!-- ======= About Section ======= -->
 		<section id="about" class="about">
 			<div class="container about-me-container">
 				<div class="section-title">
@@ -42,7 +45,7 @@
 	
 				<div class="about-me">
 					<div class="my-photo-container">
-						<img src="assets/images/my-photo.jpg" class="my-photo" alt>
+						<img src="dist/images/my-photo.jpg" class="my-photo" alt>
 					</div>
 
 					<div class="my-description-container">
@@ -196,7 +199,9 @@
 				</div>
 			</div>
 		</section>	
+		<!-- End About Section -->
 
+		<!-- ======= Resume Section ======= -->
 		<section id="resume" class="resume">
 			<div class="container resume-container">
 				<div class="section-title">
@@ -205,19 +210,20 @@
 				<div class ="resume-buttons">
 					<button class="resume-btn work-btn active" data-target="work-content">Work</button>
 					<button class="resume-btn educ-btn" data-target="education-content">Education</button>
+					<button class="resume-btn vol-btn" data-target="volunteering-content">Volunteer</button>
 				</div>
 				<div class="resume-trees">
-					<div class="tree-content visible" id="work-content">
+					<div class="tree-content visible was-left" id="work-content">
 						<div class="tree-wrapper">
 							<div class="tree">
 								<i class="tree-helper work-helper"></i>
 								<div class="tree-infobox">
-									<span class="work-position">Junior Frontend Developer</span>
-									<span class="work-company">mime digital s.r.o.</span>
-									<span class="work-period">09.2023 - 03.2024</span>
+									<span class="tree-position work-position">Junior Frontend Developer</span>
+									<span class="tree-company">mime digital s.r.o.</span>
+									<span class="tree-period">09.2023 - 03.2024</span>
 								</div>
-								<ul class="work-description">
-									<div class="work-description-wrapper">
+								<ul class="tree-description">
+									<div class="tree-description-wrapper">
 										<h3>Job description</h3>
 										<li>Frontend development for Shoptet e-shops</li>
 										<li>Development in team</li>
@@ -226,7 +232,7 @@
 										<li>Deploying websites, working with FTP</li>
 										<li>Collaboration with backend, API work, AJAX</li>
 										<li>Communication with project managers and clients</li>
-										<div class="work-description-data">
+										<div class="tree-description-data">
 											<h3>Languages</h3>
 											<li>JavaScript, SASS, HTML, jQuery</li>
 											<h3>Tools</h3>
@@ -240,19 +246,19 @@
 							<div class="tree">
 								<i class="tree-helper work-helper"></i>
 								<div class="tree-infobox">
-									<span class="work-position">Contact Center Product Specialist</span>
-									<span class="work-company">Foodora</span>
-									<span class="work-period">06.2022 - 12.2022</span>
+									<span class="tree-position work-position">Contact Center Product Specialist</span>
+									<span class="tree-company">Foodora</span>
+									<span class="tree-period">06.2022 - 12.2022</span>
 								</div>
-								<ul class="work-description">
-									<div class="work-description-wrapper">
+								<ul class="tree-description">
+									<div class="tree-description-wrapper">
 										<h3>Job description</h3>
 										<li>Data preparation, statistics, or reporting</li>
 										<li>Troubleshooting technical issues, bug reporting</li>
 										<li>Handling changes and new features in systems</li>
 										<li>Communication with headquarters, developers, product, and other Delivery Hero departments</li>
 										<li>Training employees in system areas</li>
-										<div class="work-description-data">
+										<div class="tree-description-data">
 											<h3>Tools</h3>
 											<li> SalesForce, JIRA, Confluence, Google Sheets, Tableau</li>
 										</div>
@@ -262,12 +268,12 @@
 							<div class="tree">
 								<i class="tree-helper work-helper"></i>
 								<div class="tree-infobox">
-									<span class="work-position">Team Leader of Partner Support</span>
-									<span class="work-company">Foodora</span>
-									<span class="work-period">04.2021 - 05.2022</span>
+									<span class="tree-position work-position">Team Leader of Partner Support</span>
+									<span class="tree-company">Foodora</span>
+									<span class="tree-period">04.2021 - 05.2022</span>
 								</div>
-								<ul class="work-description">
-									<div class="work-description-wrapper">
+								<ul class="tree-description">
+									<div class="tree-description-wrapper">
 										<h3>Job description</h3>
 										<li>Team communication, providing feedback</li>
 										<li>Communication with business partners</li>
@@ -279,12 +285,12 @@
 							<div class="tree">
 								<i class="tree-helper work-helper"></i>
 								<div class="tree-infobox">
-									<span class="work-position">Partner Support</span>
-									<span class="work-company">Foodora</span>
-									<span class="work-period">09.2020 - 03.2022</span>
+									<span class="tree-position work-position">Partner Support</span>
+									<span class="tree-company">Foodora</span>
+									<span class="tree-period">09.2020 - 03.2022</span>
 								</div>
-								<ul class="work-description">
-									<div class="work-description-wrapper">
+								<ul class="tree-description">
+									<div class="tree-description-wrapper">
 										<h3>Job description</h3>
 										<li>Resolving requests from business partners</li>
 										<li>Communicating with customers and couriers</li>
@@ -297,12 +303,12 @@
 							<div class="tree">
 								<i class="tree-helper work-helper"></i>
 								<div class="tree-infobox">
-									<span class="work-position">Reception | Office Assistant</span>
-									<span class="work-company">Prague-Stay</span>
-									<span class="work-period">04.2017 - 05.2020</span>
+									<span class="tree-position work-position">Reception | Office Assistant</span>
+									<span class="tree-company">Prague-Stay</span>
+									<span class="tree-period">04.2017 - 05.2020</span>
 								</div>
-								<ul class="work-description">
-									<div class="work-description-wrapper">
+								<ul class="tree-description">
+									<div class="tree-description-wrapper">
 										<h3>Job description</h3>
 										<li>Communication with clients</li>
 										<li>Accommodating clients, managing reservations</li>
@@ -354,20 +360,194 @@
 							</div>
 						</div>
 					</div>
-					
+
+					<div class="tree-content" id="volunteering-content">
+						<div class="tree-wrapper">
+							<div class="tree">
+								<i class="tree-helper vol-helper"></i>
+								<div class="tree-infobox">
+									<span class="tree-position vol-position">Lecturer</span>
+									<span class="tree-company">CzechedSubstance</span>
+									<span class="tree-period">12.2023 - NOW</span>
+								</div>
+								<ul class="tree-description">
+									<div class="tree-description-wrapper">
+										<h3>Description</h3>
+										<li>Lecturing, attending schools for primary preventions</li>
+										<li>Spreading knowledge about psychoactive substances and mental health</li>
+									</div>
+								</ul>
+							</div>
+						</div>
+						<div class="tree-wrapper">
+							<div class="tree">
+								<i class="tree-helper vol-helper"></i>
+								<div class="tree-infobox">
+									<span class="tree-position vol-position">PsyCare Coordinator & Data Manager</span>
+									<span class="tree-company">Czech Psychedelic Society</span>
+									<span class="tree-period">1.2022 - NOW</span>
+								</div>
+								<ul class="tree-description">
+									<div class="tree-description-wrapper">
+										<h3>Description</h3>
+										<li>Leading PsyCare teams on festivals</li>
+										<li>Coworking with festival organizers</li>
+										<li>Processing data from festivals and making reports</li>
+									</div>
+								</ul>
+							</div>
+						</div>
+						<div class="tree-wrapper">
+							<div class="tree">
+								<i class="tree-helper vol-helper"></i>
+								<div class="tree-infobox">
+									<span class="tree-position vol-position">Volunteer</span>
+									<span class="tree-company">PsyCare</span>
+									<span class="tree-period">5.2018 - NOW</span>
+								</div>
+								<ul class="tree-description">
+									<div class="tree-description-wrapper">
+										<h3>Description</h3>
+										<li>Taking care of people going through difficult experiences (under influence or not)</li>
+										<li>Handing out harm-reduction material and providing information about psychoactive substances</li>
+										<li>Collaborating with medics and security</li>
+									</div>
+								</ul>
+							</div>
+						</div>
+					</div>
 				</div>
 
 			</div>
 		</section>
+		<!-- End Resume Section -->
 
+		<!-- ======= Portfolio Section ======= -->
 		<section id="portfolio" class="portfolio">
 			<div class="container portfolio-container">
-				<div class="section-title">
+				<div class="section-header">
 					<h2>Portfolio</h2>
+					<div class ="portfolio-buttons">
+						<button class="portfolio-btn active" data-target="all">All</button>
+						<button class="portfolio-btn" data-target="e-shops">E-shops</button>
+						<button class="portfolio-btn" data-target="websites">Websites</button>
+						<button class="portfolio-btn" data-target="games">Games</button>
+					</div>
+				</div>
+				<div class="projects-content">
+					<div class="projects projects-e-shops">
+						<div class="section-title">
+							<h2>E-shops</h2>
+						</div>
+
+						<div class="projects-wrap">
+							<div class="project project-eshop">
+								<div class="project-label">
+									<span class="project-name">Xfer</span>
+									<span class="project-rights">mime digital s.r.o.</span>
+								</div>
+								<div class="project-image-wrap">
+									<img src="dist/images/projects/xfer.png" class="project-image" alt>
+								</div>
+							</div>
+							<div class="project project-eshop">
+								<div class="project-label">
+									<span class="project-name">Woox</span>
+									<span class="project-rights">mime digital s.r.o.</span>
+								</div>
+								<div class="project-image-wrap">
+									<img src="dist/images/projects/woox.png"  class="project-image" alt>
+								</div>
+							</div>
+							<div class="project project-eshop">
+								<div class="project-label">
+									<span class="project-name">Olivie</span>
+									<span class="project-rights">mime digital s.r.o.</span>
+								</div>
+								<div class="project-image-wrap">
+									<img src="dist/images/projects/olivie.png"  class="project-image" alt>
+								</div>
+							</div>
+							<div class="project project-eshop">
+								<div class="project-label">
+									<span class="project-name">Corwell</span>
+									<span class="project-rights">mime digital s.r.o.</span>
+								</div>
+								<div class="project-image-wrap">
+									<img src="dist/images/projects/corwell.png" class="project-image" alt>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="projects projects-websites">
+						<div class="section-title">
+							<h2>Websites</h2>
+						</div>
+
+						<div class="projects-wrap">
+							<div class="project project-websites">
+								<div class="project-label">
+									<span class="project-name">Portfolio</span>
+									<span class="project-rights">Martin Houdek</span>
+								</div>
+								<div class="project-image-wrap">
+									<img src="dist/images/projects/portfolio.png" class="project-image" alt>
+								</div>
+							</div>
+							<div class="project project-websites">
+								<div class="project-label">
+									<span class="project-name">Forkify</span>
+									<span class="project-rights">Jonas Schmedtmann</span>
+								</div>
+								<div class="project-image-wrap">
+									<img src="dist/images/projects/forkify.png" class="project-image" alt>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="projects projects-games">
+						<div class="section-title">
+							<h2>Games</h2>
+						</div>
+						<div class="projects-wrap">
+							<div class="project project-games">
+								<div class="project-label">
+									<span class="project-name">Dark Defender</span>
+									<span class="project-rights">Martin Houdek</span>
+								</div>
+								<div class="project-image-wrap">
+									<img src="dist/images/projects/defender.png" class="project-image" alt>
+								</div>
+							</div>
+							<div class="project project-games">
+								<div class="project-label">
+									<span class="project-name">CockBlock</span>
+									<span class="project-rights">Martin Houdek</span>
+								</div>
+								<div class="project-image-wrap">
+									<img src="dist/images/projects/cockblock.png" class="project-image" alt>
+								</div>
+							</div>
+							<div class="project project-games">
+								<div class="project-label">
+									<span class="project-name">Blotter Breaker</span>
+									<span class="project-rights">Martin Houdek</span>
+								</div>
+								<div class="project-image-wrap">
+									<img src="dist/images/projects/blotter.png" class="project-image" alt>
+								</div>
+							</div>
+						</div>
+					</div>
+
 				</div>
 			</div>
 		</section>
+		<!-- End Portfolio Section -->
 
+		<!-- ======= Contact Section ======= -->
 		<section id="contact" class="contact">
 			<div class="container contact-container">
 				<div class="section-title">
@@ -423,8 +603,8 @@
 				</div>
 			</div>
 		</section>
-
+		<!-- End Contact Section -->
 	</div>
-
+	<!-- End Page Content -->
 </body>
 </html>

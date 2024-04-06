@@ -27,12 +27,12 @@ export default class Contact {
                     formMessage.remove();
                 }
     
-                this.helpers.createLoadingCircle(this.formBtn);
+                this.helpers.createLoader(this.formBtn);
                 this.blockFormBtn();
                 this.sendEmail();
             } else {
                 const requiredMsg = this.createFormMsg();
-                requiredMsg.textContent = 'Something wrong in the contact form!'
+                requiredMsg.textContent = 'Something went wrong in the contact form!'
             }
         });
     }
@@ -44,31 +44,31 @@ export default class Contact {
     isEmailAvailable() {
         let inputsFilled = true;
         let emailValid = true;
+
+        const setInputBorder = (element, color) => {
+            element.style.border = `1px solid ${color}`;
+        }
     
         this.formInputs.forEach(input => {
             const value = input.value.trim();
     
             if (value.length === 0) {
                 inputsFilled = false;
-                this.setInputBorder(input.parentElement, '#df0707');
+                setInputBorder(input.parentElement, '#df0707');
             } else if (input.id === 'form-email') {
                 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
                 emailValid = emailPattern.test(value);
-                this.setInputBorder(input.parentElement, emailValid ? '#161616' : '#df0707');
+                setInputBorder(input.parentElement, emailValid ? '#161616' : '#df0707');
             } else {
-                this.setInputBorder(input.parentElement, '#161616');
+                setInputBorder(input.parentElement, '#161616');
             }
     
             input.addEventListener('focus', () => {
-                this.setInputBorder(input.parentElement, '#161616');
+                setInputBorder(input.parentElement, '#161616');
             });
         });
     
         return inputsFilled && emailValid;
-    }
-    
-    setInputBorder(element, color) {
-        element.style.border = `1px solid ${color}`;
     }
     
 
@@ -96,8 +96,9 @@ export default class Contact {
         emailjs.send(emailParams.serviceID, emailParams.templateID, emailParams.templateParams)
             .then(
                 (response) => {
-                    this.unblockFormBtn();
                     this.removeEmailLoader();
+                    this.unblockFormBtn();
+
                     const successMsg = this.createFormMsg();
                     successMsg.textContent = 'Email successfully sent!';
                 },
@@ -110,14 +111,6 @@ export default class Contact {
                     console.error('sendEmail | Error:', error);
                 }
             );
-    }
-
-
-    /**
-     * Init emailJS with public key
-     */
-    initializeEmailJS() {
-        emailjs.init('17QY5w2jr6Pk9ULOU');
     }
 
     
@@ -151,27 +144,24 @@ export default class Contact {
     }
 
 
-    /**
-     * Remove e-mail loading circle
-     */
     removeEmailLoader() {
-        const loadingCircle = this.contactForm.querySelector('.loader');
-        loadingCircle.remove();
+        const loader = this.contactForm.querySelector('.loader');
+        loader.remove();
     }
 
-
-    /**
-     * Remove e-mail loading circle
-     */
     unblockFormBtn() {
         this.formBtn.disabled = false;
     }
 
-
-    /**
-     * Remove e-mail loading circle
-     */
     blockFormBtn() {
         this.formBtn.disabled = true;
+    }
+
+
+    /**
+     * Init emailJS with public key
+     */
+    initializeEmailJS() {
+        emailjs.init('17QY5w2jr6Pk9ULOU');
     }
 }

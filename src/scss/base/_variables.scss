@@ -8,22 +8,27 @@ $color-background-lightdark: #000000E6;
 $color-background-icon: #161616;
 $color-background-icon-hover: #2c2c2c;
 
-$color-work-period: #222222;
+$color-tree-period: #222222;
 
 $color-border: #df0707;
 $color-purple-primary: #ab0beb;
+$color-green-primary: #30eb0b;
 
-$color-form-btn: #af0d0d;
-$color-form-btn-hover: #910808;
+$color-form-btn: #9e0505;
+$color-form-btn-hover: #720707;
 $color-form-btn-blocked: #aaaaaa;
+
+$color-loader: #ff0000;
 
 
 $header-top-height: 80px;
 
+$about-icon-size: 32px;
+
 $resume-buttons-gap: 40px;
 $resume-work-gap: 140px;
 $resume-infobox-gap: 35px;
-$resume-tree-offset: 5%;
+$resume-tree-offset: 15%;
 
 
 $trans: all 0.3s ease-in-out 0s;

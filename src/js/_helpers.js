@@ -41,11 +41,10 @@ export default class Helpers {
       options.value && (element.value = options.value);
       options.style && (element.style.cssText = options.style);
       
-      if (options.dataset) {
+      options.dataset &&
         Object.keys(options.dataset).forEach(key => {
           element.dataset[key] = options.dataset[key];
-        });
-      }
+      });
     }
 
     return element;
@@ -74,18 +73,18 @@ export default class Helpers {
    *
    * @param {element} reference - The reference element before which is the loading circle inserted
    */
-  createLoadingCircle = (reference) => {
-    const loader = this.createDOMElement('tr', {
+  createLoader = (reference) => {
+    const loader = this.createDOMElement('div', {
       classes: ['loader']
     })
 
-    const loadingCircle = this.createDOMElement('td', {
+    const loadingCircle = this.createDOMElement('tr', {
       classes: ['loading-circle']
     });
     loader.appendChild(loadingCircle);
 
     for (let i = 1; i <= 20; i++) {
-      const styleSpan = this.createDOMElement('span', {
+      const styleSpan = this.createDOMElement('td', {
         style: `--i:${i};`
       });
       loadingCircle.appendChild(styleSpan);

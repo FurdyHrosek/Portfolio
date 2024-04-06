@@ -1,10 +1,21 @@
 .header-top {
 	height: $header-top-height !important;
 	position: fixed !important;
+	justify-self: center;
+	z-index: 10;
 	left: 0;
 	top: 0;
 	right: 0;
 	background: $color-background-lightdark;
+
+	&::before {
+		content: '';
+		height: $header-top-height !important;
+		position: absolute;
+		width: 9999px;
+		margin-left: -4999px;
+		background: $color-background-lightdark;
+	}
 
 	.container {
 		display: flex;

@@ -1,6 +1,9 @@
 section {
+    flex: 1;
     position: relative;
     opacity: 0;
+
+    max-width: 1460px;
 
     transition: ease-in-out 0.4s;
 

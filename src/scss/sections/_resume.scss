@@ -2,19 +2,22 @@
   &-container {
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     
     .resume-buttons {
       display: flex;
+      justify-content: center;
+      gap: 40px;
       margin-top: 30px;
 
       .resume-btn {
-        position: absolute;
         width: max-content;
         padding: 10px;
 
         background-color: $color-background-black;
         color: $color-font-primary;
         border: 0;
+        border-bottom: 1px solid $color-background-black;
 
         cursor: pointer;
         text-transform: uppercase;
@@ -22,30 +25,32 @@
         transition: $trans;
 
         &.work-btn {
-          right: calc(50% + $resume-buttons-gap);
-          border-color: $color-border;
-
           &:hover {
             border-bottom: 1px solid $color-border;
           }
   
           &.active {
             border-bottom: 1px solid $color-border;
-            background-color: $color-background-black;
           }
         }
 
         &.educ-btn {
-          left: calc(50% + $resume-buttons-gap);
-          border-color:  $color-purple-primary;
-
           &:hover {
             border-bottom: 1px solid  $color-purple-primary;
           }
   
           &.active {
             border-bottom: 1px solid  $color-purple-primary;
-            background-color: $color-background-black;
+          }
+        }
+
+        &.vol-btn {
+          &:hover {
+            border-bottom: 1px solid  $color-green-primary;
+          }
+  
+          &.active {
+            border-bottom: 1px solid  $color-green-primary;
           }
         }
       }
@@ -54,44 +59,45 @@
     .resume-trees {
       display: flex;
       flex-direction: row;
+      position: relative;
+
+      min-height: 100%;
 
       transition: all 0.15s ease-in-out 0s;
 
       .tree-content {
+        position: absolute;
         display: flex;
-        position: relative;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+  
+        width: 100%;
+        margin-top: 110px;
+        transition: $trans;
 
         opacity: 0;
 
         transition: all 0.15s ease-in-out 0s;
 
-        &#work-content {
-          left: $resume-tree-offset;
-        }
-        &#education-content {
+        &.left-tree {
           left: -$resume-tree-offset;
+        }
+        &.right-tree {
+          left: $resume-tree-offset;
         }
         
         &.visible {
           opacity: 1 !important;
           z-index: 99;
 
-          &#work-content {
-            left: $resume-tree-offset * 5 !important;
-            right: -$resume-tree-offset * 5 !important;
+          &.was-left {
+            left: 0 !important;
           }
-          &#education-content {
-            left: -$resume-tree-offset * 5 !important;
-            right: $resume-tree-offset * 5 !important;
+          &.was-right {
+            left: 0 !important;
           }
         }
-  
-        flex-direction: column;
-        align-items: center;
-  
-        width: 100%;
-        margin-top: 110px;
-        transition: $trans;
   
         .tree-wrapper {
           &:last-child {
@@ -117,10 +123,10 @@
                 align-items: flex-end;
               }
   
-              .work-description {
+              .tree-description {
                 left: calc($resume-infobox-gap + 10px);
               }
-              .work-position {
+              .tree-position {
                 padding-right: $resume-infobox-gap;
                 transform: translateX($resume-infobox-gap);
               }
@@ -132,10 +138,10 @@
                 align-items: flex-start;
               }
   
-              .work-description {
+              .tree-description {
                 right: $resume-infobox-gap;
               }
-              .work-position {
+              .tree-position {
                 padding-left: $resume-infobox-gap;
                 transform: translateX(-$resume-infobox-gap);
               }
@@ -158,6 +164,12 @@
                 background-color: $color-purple-primary;
                 &::after {
                   background-color: $color-purple-primary;
+                }
+              }
+              &.vol-helper {
+                background-color: $color-green-primary;
+                &::after {
+                  background-color: $color-green-primary;
                 }
               }
   
@@ -184,17 +196,23 @@
   
               width: max-content;
               gap: 10px 0;
-  
-              .work-position {
-                width: 100%;
+
+              .tree-position {
+                width: max-content;
                 font-size: 18px;
                 font-weight: 600;
-                color: $color-border;
                 cursor: pointer;
                 text-transform: uppercase;
               }
   
-              .work-company,
+              .work-position {
+                color: $color-border;
+              }
+              .vol-position {
+                color: $color-green-primary;
+              }
+  
+              .tree-company,
               .edu-field {
                 width: 100%;
                 font-size: 15px;
@@ -207,7 +225,7 @@
                 gap: 10px;
               }
   
-              .work-period,
+              .tree-period,
               .edu-period,
               .edu-status {
                 display: flex;
@@ -218,7 +236,7 @@
                 padding: 8px 10px;
                 margin-top: 8px;
   
-                background-color: $color-work-period;
+                background-color: $color-tree-period;
                 font-size: 15px;
                 text-transform: uppercase;
               }
@@ -230,7 +248,7 @@
                 text-transform: uppercase;
               }
             }
-            .work-description {
+            .tree-description {
               display: none;
               position: absolute;
               height: max-content;
@@ -238,6 +256,7 @@
               margin: 0;
               padding: 0;
               z-index: 99;
+              transition: $trans;
   
               &-wrapper {
                 margin-bottom: 30px;

@@ -9,14 +9,17 @@ module.exports = {
     publicPath: '/dist/js/'
   },
   devServer: {
-    static: './dist',
+    static: {
+      directory: path.resolve(__dirname, 'dist'),
+    },
     compress: true,
     port: 8080,
     proxy: [{
       context: ['/'],
       target: 'http://localhost:80'
     }],
-  }, 
+    hot: true
+  },
   module: {
     rules: [
       {
@@ -36,6 +39,10 @@ module.exports = {
             presets: ['@babel/preset-env']
           }
         }
+      },
+      {
+        test: /\.html$/,
+        use: ['html-loader']
       }
     ]
   }

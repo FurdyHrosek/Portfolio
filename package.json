@@ -15,8 +15,8 @@
     "@babel/preset-env": "^7.24.3",
     "babel-loader": "^8.3.0",
     "core-js": "^3.36.1",
-    "css-loader": "^6.11.0",
     "dockerode": "^4.0.2",
+    "css-loader": "^6.11.0",
     "sass": "^1.72.0",
     "sass-loader": "^12.6.0",
     "sass-math": "^1.0.0",
@@ -26,8 +26,8 @@
     "webpack-dev-server": "^5.0.4"
   },
   "dependencies": {
-    "regenerator-runtime": "^0.13.11",
-    "emailjs-com": "^3.2.0"
+    "emailjs-com": "^3.2.0",
+    "regenerator-runtime": "^0.13.11"
   },
   "browserslist": [
     "> 0.5%",

@@ -1,10 +1,17 @@
-import { workOriginalHeight, workAnimationDuration } from './_config.js';
+import { globalTransition, 
+        treesHeightOffset, 
+        workOriginalHeight, 
+        workAnimationDuration } from './_config.js';
 
 export default class Resume {
     constructor() {
+        this.resumeButtons = document.querySelectorAll('.resume-btn');
         this.trees = document.querySelectorAll('.tree');
+        this.treeContents = document.querySelectorAll('.tree-content');
 
         this.handleVisibleTree();
+        this.handleTreePositioning();
+        this.setResumeTreesHeight();
         this.handleInfoboxParity();
         this.setupTreeHelpers();
     }
@@ -27,8 +34,8 @@ export default class Resume {
             });
         });
 
-        const workPositions = document.querySelectorAll('.work-position');
-        workPositions.forEach(workPosition => {
+        const treePositions = document.querySelectorAll('.tree-position');
+        treePositions.forEach(workPosition => {
             const closestWork = workPosition.closest('.tree');
             const closestWorkHelper = closestWork.querySelector('.tree-helper')
 
@@ -47,11 +54,11 @@ export default class Resume {
      * Handle mouseover event on work-helper elements
      */
     handleMouseOver(event, closestWork, workHelper) {
-        const workDesc = event.target.closest('.tree').querySelector('.work-description');
+        const workDesc = event.target.closest('.tree').querySelector('.tree-description');
 
         if (!workDesc) return;
 
-        const workDescWrapper = workDesc.querySelector('.work-description-wrapper');
+        const workDescWrapper = workDesc.querySelector('.tree-description-wrapper');
 
         const workDescHeight = this.getWorkDescriptionHeight(workDesc);
     
@@ -66,22 +73,51 @@ export default class Resume {
         workHelper.style.setProperty('--work-helper-height', newHeight + 'px');
 
         const workDescScrollHeight = workDescWrapper.scrollHeight;
-        this.startDescriptionAnimation(workDescWrapper, workDescScrollHeight, workAnimationDuration);
+        this.startDescriptionAnimation(workDescWrapper, workDescScrollHeight, workAnimationDuration, 'over');
 
-        this.moveUpcomingWorks(offset, closestWork);
+        this.moveFollowingWorks(offset, closestWork);
     }
     
+    
+    /**
+     * Handle mouseout event on work-helper elements
+     */
+    handleMouseOut(event, closestWork, workHelper) {
+        const workDesc = event.target.closest('.tree').querySelector('.tree-description');
+
+        if (!workDesc) return;
+
+        const workDescWrapper = workDesc.querySelector('.tree-description-wrapper');
+    
+        setTimeout(() => {
+            workDesc.style.display = 'none';
+        }, globalTransition);
+
+        this.startDescriptionAnimation(workDescWrapper, 0, workAnimationDuration, 'out');
+        workHelper.style.setProperty('--work-helper-height', workOriginalHeight + 'px');
+
+        this.moveFollowingWorks(0, closestWork);
+    }
+
 
     /**
      * Start animation for work description to slowly appear from top
      */
-    startDescriptionAnimation(element, targetHeight, duration) {
+    startDescriptionAnimation(element, targetHeight, duration, type) {
         const startTime = performance.now();
-    
+        const startHeight = parseFloat(element.style.maxHeight.replace('px', ''));
+        
         const descriptionAnimation = (currentTime) => {
             const elapsedTime = currentTime - startTime;
             const progress = Math.min(elapsedTime / duration, 1);
-            const newHeight = targetHeight * progress;
+            
+            let newHeight;
+    
+            if (type === 'out') {
+                newHeight = startHeight - (startHeight * progress);
+            } else if (type === 'over') {
+                newHeight = startHeight + ((targetHeight - startHeight) * progress);
+            }
     
             element.style.maxHeight = `${newHeight}px`;
     
@@ -92,25 +128,12 @@ export default class Resume {
     
         requestAnimationFrame(descriptionAnimation);
     }
-    
-    
-    /**
-     * Handle mouseout event on work-helper elements
-     */
-    handleMouseOut(event, closestWork, workHelper) {
-        const workDescription = event.target.closest('.tree').querySelector('.work-description');
-        if (workDescription) {
-            workDescription.style.display = 'none';
-            workHelper.style.setProperty('--work-helper-height', workOriginalHeight + 'px');
-            this.moveUpcomingWorks(0, closestWork);
-        }
-    }
 
     
     /**
      * Move other works by the specified height offset
      */
-    moveUpcomingWorks(offset, currentWork) {
+    moveFollowingWorks(offset, currentWork) {
         const currentIndex = [...this.trees].indexOf(currentWork);
     
         for (let i = currentIndex + 1; i < this.trees.length; i++) {
@@ -168,26 +191,86 @@ export default class Resume {
 
 
     /**
-     * Handle visible tree class based on clicked tree button
+     * Sets height of the entire resume-trees container as the trees are positioned absolutely
+     */
+    setResumeTreesHeight() {
+        const resumeTrees = document.querySelector('.resume-trees');
+        const visibleTree = document.querySelector('.tree-content.visible');
+
+        const visibleTreeHeight = visibleTree.clientHeight;
+
+        resumeTrees.style.height = visibleTreeHeight + treesHeightOffset + 'px';
+    }
+
+
+    /**
+     * Assign left/right classes for inactive trees to determine their position relative to the current active tree/button
+     */
+    handleTreePositioning() {
+        const activeButton = document.querySelector('.resume-btn.active');
+    
+        this.resumeButtons.forEach(button => {
+            button.classList.remove('left-btn', 'right-btn');
+        });
+    
+        if (activeButton) {
+            const activeIndex = [...this.resumeButtons].indexOf(activeButton);
+    
+            this.resumeButtons.forEach((button, index) => {
+                if (button !== activeButton) {
+                    if (index < activeIndex) {
+                        button.classList.add('left-btn');
+                    } else if (index > activeIndex) {
+                        button.classList.add('right-btn');
+                    }
+                }
+            });
+    
+            this.treeContents.forEach(content => {
+                const contentId = content.getAttribute('id');
+                const associatedButton = document.querySelector(`.resume-btn[data-target="${contentId}"]`);
+                
+                if (associatedButton.classList.contains('left-btn')) {
+                    content.classList.add('left-tree');
+                    content.classList.remove('right-tree', 'was-left', 'was-right');
+                } else if (associatedButton.classList.contains('right-btn')) {
+                    content.classList.add('right-tree');
+                    content.classList.remove('left-tree', 'was-left', 'was-right');
+                } else if (associatedButton.classList.contains('active')) {
+                    if (content.classList.contains('left-tree')) {
+                        content.classList.remove('left-tree');
+                        content.classList.add('was-left');
+                    } else if (content.classList.contains('right-tree')) {
+                        content.classList.remove('right-tree');
+                        content.classList.add('was-right');
+                    }
+                }
+            });
+        }
+    }
+    
+
+    /**
+     * Handle visible tree class based on the clicked tree button
      */
     handleVisibleTree() {
-        const resumeButtons = document.querySelectorAll('.resume-btn');
-        const treeContents = document.querySelectorAll('.tree-content');
-    
-        resumeButtons.forEach(button => {
+        this.resumeButtons.forEach(button => {
             button.addEventListener('click', event => {
                 const targetId = event.target.getAttribute('data-target');
                 if (targetId) {
-                    resumeButtons.forEach(btn => {
+                    this.resumeButtons.forEach(btn => {
                         btn.classList.remove('active');
                     });
                     event.target.classList.add('active');
                     
-                    treeContents.forEach(content => {
+                    this.treeContents.forEach(content => {
                         content.classList.remove('visible');
                     });
                     document.getElementById(targetId).classList.add('visible');
                 }
+
+                this.handleTreePositioning();
+                this.setResumeTreesHeight();
             });
         });
     }
