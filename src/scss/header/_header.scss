@@ -37,7 +37,7 @@
 
 		.profession {
 			color: #fff;
-			border-bottom: 2px solid $color-border;
+			border-bottom: 2px solid $color-red-primary;
 			padding-bottom: 6px;
 		}
 	}
@@ -70,7 +70,7 @@
 					bottom: -4px;
 					left: 0;
 					
-					background-color: $color-border;
+					background-color: $color-red-primary;
 					transition: $trans;
 				}
 

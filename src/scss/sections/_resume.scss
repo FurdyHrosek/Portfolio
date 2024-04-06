@@ -11,7 +11,7 @@
       margin-top: 30px;
 
       .resume-btn {
-        width: max-content;
+        width: 150px;
         padding: 10px;
 
         background-color: $color-background-black;
@@ -26,31 +26,31 @@
 
         &.work-btn {
           &:hover {
-            border-bottom: 1px solid $color-border;
+            border-bottom: 1px solid $color-red-primary;
           }
   
           &.active {
-            border-bottom: 1px solid $color-border;
+            border-bottom: 1px solid $color-red-primary;
           }
         }
 
         &.educ-btn {
           &:hover {
-            border-bottom: 1px solid  $color-purple-primary;
+            border-bottom: 1px solid  $color-orange-primary;
           }
   
           &.active {
-            border-bottom: 1px solid  $color-purple-primary;
+            border-bottom: 1px solid  $color-orange-primary;
           }
         }
 
         &.vol-btn {
           &:hover {
-            border-bottom: 1px solid  $color-green-primary;
+            border-bottom: 1px solid  $color-purple-primary;
           }
   
           &.active {
-            border-bottom: 1px solid  $color-green-primary;
+            border-bottom: 1px solid  $color-purple-primary;
           }
         }
       }
@@ -155,21 +155,21 @@
   
               &.work-helper {
                 cursor: pointer;
-                background-color: $color-border;
+                background-color: $color-red-primary;
                 &::after {
-                  background-color: $color-border;
+                  background-color: $color-red-primary;
                 }
               }
               &.edu-helper {
-                background-color: $color-purple-primary;
+                background-color: $color-orange-primary;
                 &::after {
-                  background-color: $color-purple-primary;
+                  background-color: $color-orange-primary;
                 }
               }
               &.vol-helper {
-                background-color: $color-green-primary;
+                background-color: $color-purple-primary;
                 &::after {
-                  background-color: $color-green-primary;
+                  background-color: $color-purple-primary;
                 }
               }
   
@@ -206,10 +206,10 @@
               }
   
               .work-position {
-                color: $color-border;
+                color: $color-red-primary;
               }
               .vol-position {
-                color: $color-green-primary;
+                color: $color-purple-primary;
               }
   
               .tree-company,
@@ -244,7 +244,7 @@
               .edu-school {
                 width: 100%;
                 font-size: 18px;
-                color:  $color-purple-primary;
+                color:  $color-orange-primary;
                 text-transform: uppercase;
               }
             }
