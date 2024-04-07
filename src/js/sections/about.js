@@ -10,13 +10,13 @@ export default class About {
         this.skillsCreated = false;
 
         this.createSkills();
-        this.startProgressAnimation();
+        this.handleProgressAnimation();
     }
 
     /**
      * Animate skills progress bars to load from start til set percentage
      */
-    startProgressAnimation() {
+    handleProgressAnimation() {
         const languages = document.querySelectorAll('.language-wrapper');
 
         languages.forEach(language => {
@@ -28,12 +28,12 @@ export default class About {
 
             let startTime;
 
-            const startAnimation = () => {
+            const startProgressAnimation = () => {
                 startTime = performance.now();
-                requestAnimationFrame(loadingAnimation);
+                requestAnimationFrame(progressAnimation);
             }
 
-            const loadingAnimation = (currentTime) => {
+            const progressAnimation = (currentTime) => {
                 const elapsedTime = currentTime - startTime;
                 const progress = Math.min(elapsedTime / progressAnimationDuration, 1);
 
@@ -41,13 +41,13 @@ export default class About {
                 progressBar.style.width = newWidth + '%';
 
                 if (progress < 1) {
-                    requestAnimationFrame(loadingAnimation);
+                    requestAnimationFrame(progressAnimation);
                 }
             }
 
             const observer = new IntersectionObserver(entries => {
                 if (entries[0].isIntersecting) {
-                    setTimeout(startAnimation, homeAppearanceDelay);
+                    setTimeout(startProgressAnimation, homeAppearanceDelay);
                     observer.unobserve(language);
                 }
             });
