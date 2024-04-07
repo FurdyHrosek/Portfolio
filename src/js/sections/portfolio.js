@@ -5,7 +5,7 @@ export default class Portfolio {
         this.helpers = new Helpers();
 
         this.portfolioButtons = document.querySelectorAll('.portfolio-btn');
-        this.allProjects = document.querySelectorAll('.projects');
+        this.projectWrappers = document.querySelectorAll('.projects');
         this.projects = document.querySelectorAll('.project');
 
         this.setupFilterProjects();
@@ -111,10 +111,10 @@ export default class Portfolio {
         target.classList.add('active');
 
         if (targetData === 'all') {
-            this.showProjects(this.allProjects);
+            this.showProjects(this.projectWrappers);
         } else {
             const matchingProjects = document.querySelectorAll('.projects-' + targetData);
-            this.hideProjects(this.allProjects);
+            this.hideProjects(this.projectWrappers);
             this.showProjects(matchingProjects);
         }
     }

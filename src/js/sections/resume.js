@@ -13,10 +13,10 @@ export default class Resume {
         this.trees = document.querySelectorAll('.tree');
         this.treeContents = document.querySelectorAll('.tree-content');
 
-        this.handleVisibleTree();
-        this.handleTreePositioning();
         this.setResumeTreesHeight();
-        this.setTreeParity();
+        this.handleTreeInfoboxesPositioning();
+        this.handleTreePositioning();
+        this.handleVisibleTree();
         this.setupTreeHelpers();
     }
 
@@ -27,50 +27,32 @@ export default class Resume {
     setupTreeHelpers() {
         const treeHelpers = document.querySelectorAll('.tree-helper');
         treeHelpers.forEach(helper => {
-            const closestWork = helper.closest('.tree');
+            const closeTree = helper.closest('.tree');
 
             this.createGlowpoint(helper);
 
             helper.addEventListener('mouseover', event => {
-                this.handleMouseOver(event, closestWork, helper);
+                this.handleMouseOver(event, closeTree, helper);
             });
 
             helper.addEventListener('mouseout', event => {
-                this.handleMouseOut(event, closestWork, helper);
+                this.handleMouseOut(event, closeTree, helper);
             });
         });
 
         const treePositions = document.querySelectorAll('.tree-position');
         treePositions.forEach(position => {
-            const closestWork = position.closest('.tree');
-            const closestWorkHelper = closestWork.querySelector('.tree-helper')
+            const closeTree = position.closest('.tree');
+            const closeTreeHelper = closeTree.querySelector('.tree-helper')
 
             position.addEventListener('mouseover', event => {
-                this.handleMouseOver(event, closestWork, closestWorkHelper);
+                this.handleMouseOver(event, closeTree, closeTreeHelper);
             });
 
             position.addEventListener('mouseout', event => {
-                this.handleMouseOut(event, closestWork, closestWorkHelper);
+                this.handleMouseOut(event, closeTree, closeTreeHelper);
             });
         })
-    }
-
-
-    /**
-     * Creates glowpoint for each tree helper to animate pulsing in SCSS
-     */
-    createGlowpoint(helper) {
-        const glowpoint = this.helpers.createDOMElement('tr', {
-            classes: ['glowpoint']
-        });
-        helper.appendChild(glowpoint);
-
-        for (let i = 1; i <= 10; i++) {
-            const styleSpan = this.helpers.createDOMElement('td', {
-                style: `--i:${i};`
-            });
-            glowpoint.appendChild(styleSpan);
-        }
     }
 
 
@@ -206,26 +188,48 @@ export default class Resume {
         return offset;
     }
 
-
+    
     /**
-     * Add even or odd class to infoboxes
+     * Creates glowpoint for each tree helper to animate pulsing in SCSS
      */
-    setTreeParity() {
-        this.trees.forEach((infobox, index) => 
-            infobox.classList.add(index % 2 === 0 ? 'even' : 'odd'));
+    createGlowpoint(helper) {
+        const glowpoint = this.helpers.createDOMElement('tr', {
+            classes: ['glowpoint']
+        });
+        helper.appendChild(glowpoint);
+
+        for (let i = 1; i <= 10; i++) {
+            const styleSpan = this.helpers.createDOMElement('td', {
+                style: `--i:${i};`
+            });
+            glowpoint.appendChild(styleSpan);
+        }
     }
 
 
     /**
-     * Sets height of the entire resume-trees container as the trees are positioned absolutely
+     * Handle visible tree class based on the clicked tree button
      */
-    setResumeTreesHeight() {
-        const resumeTrees = document.querySelector('.resume-trees');
-        const visibleTree = document.querySelector('.tree-content.visible');
+    handleVisibleTree() {
+        this.resumeButtons.forEach(button => {
+            button.addEventListener('click', event => {
+                const targetId = event.target.getAttribute('data-target');
+                if (targetId) {
+                    this.resumeButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    event.target.classList.add('active');
+                    
+                    this.treeContents.forEach(content => {
+                        content.classList.remove('visible');
+                    });
+                    document.getElementById(targetId).classList.add('visible');
+                }
 
-        const visibleTreeHeight = visibleTree.clientHeight;
-
-        resumeTrees.style.height = visibleTreeHeight + treesHeightOffset + 'px';
+                this.handleTreePositioning();
+                this.setResumeTreesHeight();
+            });
+        });
     }
 
 
@@ -274,30 +278,26 @@ export default class Resume {
             });
         }
     }
-    
+
 
     /**
-     * Handle visible tree class based on the clicked tree button
+     * Assign left/right classes to infoboxes based on their parity
      */
-    handleVisibleTree() {
-        this.resumeButtons.forEach(button => {
-            button.addEventListener('click', event => {
-                const targetId = event.target.getAttribute('data-target');
-                if (targetId) {
-                    this.resumeButtons.forEach(btn => {
-                        btn.classList.remove('active');
-                    });
-                    event.target.classList.add('active');
-                    
-                    this.treeContents.forEach(content => {
-                        content.classList.remove('visible');
-                    });
-                    document.getElementById(targetId).classList.add('visible');
-                }
+    handleTreeInfoboxesPositioning() {
+        this.trees.forEach((infobox, index) => 
+            infobox.classList.add(index % 2 === 0 ? 'left' : 'right'));
+    }
 
-                this.handleTreePositioning();
-                this.setResumeTreesHeight();
-            });
-        });
+
+    /**
+     * Sets height of the entire resume-trees container as the trees are positioned absolutely
+     */
+    setResumeTreesHeight() {
+        const resumeTrees = document.querySelector('.resume-trees');
+        const visibleTree = document.querySelector('.tree-content.visible');
+
+        const visibleTreeHeight = visibleTree.clientHeight;
+
+        resumeTrees.style.height = visibleTreeHeight + treesHeightOffset + 'px';
     }
 }

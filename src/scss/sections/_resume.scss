@@ -116,7 +116,7 @@
             margin-bottom: $resume-work-gap;
             transition: $trans;
   
-            &.even {
+            &.left {
               .tree-infobox {
                 right: $resume-infobox-gap;
                 text-align: right;
@@ -131,7 +131,7 @@
                 transform: translateX($resume-infobox-gap);
               }
             }
-            &.odd {
+            &.right {
               .tree-infobox {
                 left: $resume-infobox-gap;
                 text-align: left;
