@@ -1,8 +1,10 @@
 section {
     flex: 1;
-    position: relative;
+    position: absolute;
+    justify-content: center;
     opacity: 0;
 
+    width: 100%;
     max-width: 1460px;
 
     transition: ease-in-out 0.4s;
@@ -13,7 +15,12 @@ section {
 
     background-color: $color-background-black;
 
-    &.shown {
+    &.fading {
+        display: block !important;
+        opacity: 0 !important;
+    }
+
+    &.visible {
         opacity: 1;
         top: calc($header-top-height + 20px);
     }

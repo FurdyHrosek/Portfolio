@@ -1,6 +1,6 @@
 import emailjs from 'emailjs-com';
-import Helpers from './_helpers.js';
-import { messageTerminationDelay } from './_config.js';
+import Helpers from '../_helpers.js';
+import { messageTerminationDelay } from '../_config.js';
 
 export default class Contact {
     constructor() {
@@ -82,7 +82,7 @@ export default class Contact {
         const emailMessage = this.contactForm.querySelector('#form-message').value;
 
         const emailParams = {
-            serviceID: 'service_2imjab7',
+            serviceID: 'service_w68tij9',
             templateID: 'template_x147p0g', 
             templateParams: {
                 to_name: 'Martin Houdek',

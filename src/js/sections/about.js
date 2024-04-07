@@ -1,5 +1,7 @@
-import Helpers from './_helpers.js';
-import { skills, homeAppearanceDelay, progressAnimationDuration } from './_config.js';
+import Helpers from '../_helpers.js';
+import { skills, 
+         homeAppearanceDelay, 
+         progressAnimationDuration } from '../_config.js';
 
 export default class About {
     constructor() {

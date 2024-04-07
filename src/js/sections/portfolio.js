@@ -1,4 +1,4 @@
-import Helpers from './_helpers.js';
+import Helpers from '../_helpers.js';
 
 export default class Portfolio {
     constructor() {

@@ -84,7 +84,14 @@
             border: 1px solid $color-background-icon;
             transition: all 0.3s ease-in-out 0s;
 
-            input {
+            textarea {
+                padding-top: 15px !important;
+                min-height: 100px !important;
+                resize: vertical;
+            }
+
+            input,
+            textarea {
                 width: calc(100% - 40px);
                 height: 50px;
                 border: 0;

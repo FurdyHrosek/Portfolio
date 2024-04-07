@@ -58,7 +58,7 @@ export default class Helpers {
    */
   static async loadSection(sectionName) {
     try {
-        const module = await import(`./${sectionName}.js`);
+        const module = await import(`./sections/${sectionName}.js`);
         const Section = module.default;
         new Section();
         window[sectionName + 'Loaded'] = true;

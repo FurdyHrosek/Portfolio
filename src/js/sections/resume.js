@@ -1,10 +1,14 @@
 import { globalTransition, 
-        treesHeightOffset, 
-        workOriginalHeight, 
-        workAnimationDuration } from './_config.js';
+         treesHeightOffset, 
+         workOriginalHeight, 
+         workAnimationDuration } from '../_config.js';
+
+import Helpers from '../_helpers.js';
 
 export default class Resume {
     constructor() {
+        this.helpers = new Helpers();
+
         this.resumeButtons = document.querySelectorAll('.resume-btn');
         this.trees = document.querySelectorAll('.tree');
         this.treeContents = document.querySelectorAll('.tree-content');
@@ -12,7 +16,7 @@ export default class Resume {
         this.handleVisibleTree();
         this.handleTreePositioning();
         this.setResumeTreesHeight();
-        this.handleInfoboxParity();
+        this.setTreeParity();
         this.setupTreeHelpers();
     }
 
@@ -22,31 +26,51 @@ export default class Resume {
      */
     setupTreeHelpers() {
         const treeHelpers = document.querySelectorAll('.tree-helper');
-        treeHelpers.forEach(workHelper => {
-            const closestWork = workHelper.closest('.tree');
+        treeHelpers.forEach(helper => {
+            const closestWork = helper.closest('.tree');
 
-            workHelper.addEventListener('mouseover', event => {
-                this.handleMouseOver(event, closestWork, workHelper);
+            this.createGlowpoint(helper);
+
+            helper.addEventListener('mouseover', event => {
+                this.handleMouseOver(event, closestWork, helper);
             });
 
-            workHelper.addEventListener('mouseout', event => {
-                this.handleMouseOut(event, closestWork, workHelper);
+            helper.addEventListener('mouseout', event => {
+                this.handleMouseOut(event, closestWork, helper);
             });
         });
 
         const treePositions = document.querySelectorAll('.tree-position');
-        treePositions.forEach(workPosition => {
-            const closestWork = workPosition.closest('.tree');
+        treePositions.forEach(position => {
+            const closestWork = position.closest('.tree');
             const closestWorkHelper = closestWork.querySelector('.tree-helper')
 
-            workPosition.addEventListener('mouseover', event => {
+            position.addEventListener('mouseover', event => {
                 this.handleMouseOver(event, closestWork, closestWorkHelper);
             });
 
-            workPosition.addEventListener('mouseout', event => {
+            position.addEventListener('mouseout', event => {
                 this.handleMouseOut(event, closestWork, closestWorkHelper);
             });
         })
+    }
+
+
+    /**
+     * Creates glowpoint for each tree helper to animate pulsing in SCSS
+     */
+    createGlowpoint(helper) {
+        const glowpoint = this.helpers.createDOMElement('tr', {
+            classes: ['glowpoint']
+        });
+        helper.appendChild(glowpoint);
+
+        for (let i = 1; i <= 10; i++) {
+            const styleSpan = this.helpers.createDOMElement('td', {
+                style: `--i:${i};`
+            });
+            glowpoint.appendChild(styleSpan);
+        }
     }
 
 
@@ -72,7 +96,7 @@ export default class Resume {
         workDescWrapper.style.overflow = 'hidden';
 
         const newHeight = offset > 0 ? workOriginalHeight + offset : workOriginalHeight;
-        workHelper.style.setProperty('--work-helper-height', newHeight + 'px');
+        workHelper.style.setProperty('--tree-helper-height', newHeight + 'px');
 
         const workDescScrollHeight = workDescWrapper.scrollHeight;
         this.startDescriptionAnimation(workDescWrapper, workDescScrollHeight, workAnimationDuration, 'over');
@@ -96,7 +120,7 @@ export default class Resume {
         }, globalTransition);
     
         this.startDescriptionAnimation(workDescWrapper, 0, workAnimationDuration, 'out');
-        workHelper.style.setProperty('--work-helper-height', workOriginalHeight + 'px');
+        workHelper.style.setProperty('--tree-helper-height', workOriginalHeight + 'px');
     
         this.moveFollowingWorks(0, closestWork);
     }
@@ -186,7 +210,7 @@ export default class Resume {
     /**
      * Add even or odd class to infoboxes
      */
-    handleInfoboxParity() {
+    setTreeParity() {
         this.trees.forEach((infobox, index) => 
             infobox.classList.add(index % 2 === 0 ? 'even' : 'odd'));
     }

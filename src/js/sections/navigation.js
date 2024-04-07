@@ -1,4 +1,6 @@
-import { homeAppearanceDelay, hackerEffectInterval } from './_config.js';
+import { globalTransition,
+         homeAppearanceDelay, 
+         hackerEffectInterval } from '../_config.js';
 
 export default class Header {
     constructor() {
@@ -104,7 +106,7 @@ export default class Header {
      */
     handleNavigationClick(navLink) {
         const targetSectionID = navLink.getAttribute('href').substring(1);
-        this.hideAllSections(homeAppearanceDelay);
+        this.hideAllSections(homeAppearanceDelay, globalTransition);
         
         const targetSection = document.getElementById(targetSectionID);
         
@@ -125,7 +127,7 @@ export default class Header {
         this.header.classList.remove('header-top');
         this.removeActiveClass();
         this.addActiveClass(homeLink);
-        this.hideAllSections(homeAppearanceDelay);
+        this.hideAllSections(homeAppearanceDelay, 0);
         this.isHomeSection = true;
     }
 
@@ -133,16 +135,20 @@ export default class Header {
     /**
      * Show or Hide all sections
      */
-    hideAllSections(delayTime) {
+    hideAllSections(delayTime, fadingDelay) {
         this.sections.forEach(section => {
+            if (section.classList.contains('visible')) {
+                this.handleSectionFadingClass(section, fadingDelay);
+            }
+
             section.style.display = 'none';
-            this.removeShownClass(section, delayTime);
+            this.removeVisibleClass(section, delayTime);
         });
     }
 
     showSection(section) {
         section.style.display = 'block';
-        this.addShownClass(section, homeAppearanceDelay);
+        this.addVisibleClass(section, homeAppearanceDelay);
     }
 
 
@@ -155,7 +161,7 @@ export default class Header {
 
 
     /**
-     * Handle active class for current active nav link
+     * Remove active class for current active nav link
      */
     removeActiveClass() {
         this.navLinks.forEach(navLink => {
@@ -163,25 +169,45 @@ export default class Header {
         });
     }
 
+    /**
+     * Add active class for current active nav link
+     */
     addActiveClass(link) {
         link.parentElement.classList.add('active');
     }
 
 
     /**
-     * Handle shown class for current active section
+     * Handle fading class when switching to another section
      */
-    removeShownClass(section, delayTime = 0) {
+    handleSectionFadingClass(section, delay) {
+        section.classList.add('fading');
+
+        this.removeVisibleClass(section, globalTransition)
+
+        setTimeout(() => {
+            section.classList.remove('fading');
+        }, delay)
+    }   
+
+
+    /**
+     * Remove visible class for current active section
+     */
+    removeVisibleClass(section, delayTime = 0) {
         const delay = this.isHomeSection ? delayTime : 0;
         setTimeout(() => {
-            section.classList.remove('shown');
+            section.classList.remove('visible');
         }, delay);
     }
 
-    addShownClass(section, delayTime) {
+    /**
+     * Add visible class for current active section
+     */
+    addVisibleClass(section, delayTime) {
         const delay = this.isHomeSection ? delayTime : 0;
         setTimeout(() => {
-            section.classList.add('shown');
+            section.classList.add('visible');
         }, delay);
     }
 }

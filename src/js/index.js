@@ -5,7 +5,7 @@ import { async } from 'regenerator-runtime';
 import '../scss/style.scss';
 
 import Helpers from './_helpers.js';
-import Navigation from './navigation.js';
+import Navigation from './sections/navigation.js';
 
 
 const init = () => {
