@@ -111,10 +111,10 @@ export default class Header {
         const targetSection = document.getElementById(targetSectionID);
         
         if (targetSection) {
-            this.showSection(targetSection);
+            this.removeNavigationActiveClasses();
+            this.addNavigationActiveClass(navLink);
             this.toggleHeaderTopClass(targetSectionID);
-            this.removeActiveClass();
-            this.addActiveClass(navLink);
+            this.showSection(targetSection);
             this.isHomeSection = navLink === document.querySelector('.nav-link[href="#home"]');
         }
     }
@@ -125,15 +125,24 @@ export default class Header {
      */
     handleHomeLinkClick(homeLink) {
         this.header.classList.remove('header-top');
-        this.removeActiveClass();
-        this.addActiveClass(homeLink);
+        this.removeNavigationActiveClasses();
+        this.addNavigationActiveClass(homeLink);
         this.hideAllSections(homeAppearanceDelay, 0);
         this.isHomeSection = true;
     }
 
 
     /**
-     * Show or Hide all sections
+     * Show selected section
+     */
+    showSection(section) {
+        section.style.display = 'block';
+        this.addSectionVisibleClass(section, homeAppearanceDelay);
+    }
+
+
+    /**
+     * Hide all sections
      */
     hideAllSections(delayTime, fadingDelay) {
         this.sections.forEach(section => {
@@ -142,13 +151,8 @@ export default class Header {
             }
 
             section.style.display = 'none';
-            this.removeVisibleClass(section, delayTime);
+            this.removeSectionVisibleClass(section, delayTime);
         });
-    }
-
-    showSection(section) {
-        section.style.display = 'block';
-        this.addVisibleClass(section, homeAppearanceDelay);
     }
 
 
@@ -161,29 +165,12 @@ export default class Header {
 
 
     /**
-     * Remove active class for current active nav link
-     */
-    removeActiveClass() {
-        this.navLinks.forEach(navLink => {
-            navLink.parentElement.classList.remove('active');
-        });
-    }
-
-    /**
-     * Add active class for current active nav link
-     */
-    addActiveClass(link) {
-        link.parentElement.classList.add('active');
-    }
-
-
-    /**
      * Handle fading class when switching to another section
      */
     handleSectionFadingClass(section, delay) {
         section.classList.add('fading');
 
-        this.removeVisibleClass(section, globalTransition)
+        this.removeSectionVisibleClass(section, globalTransition)
 
         setTimeout(() => {
             section.classList.remove('fading');
@@ -192,22 +179,41 @@ export default class Header {
 
 
     /**
-     * Remove visible class for current active section
+     * Assign visible class to selected section
      */
-    removeVisibleClass(section, delayTime = 0) {
+    addSectionVisibleClass(section, delayTime) {
+        const delay = this.isHomeSection ? delayTime : 0;
+        setTimeout(() => {
+            section.classList.add('visible');
+        }, delay);
+    }
+
+
+    /**
+     * Remove visible class from selected section
+     */
+    removeSectionVisibleClass(section, delayTime = 0) {
         const delay = this.isHomeSection ? delayTime : 0;
         setTimeout(() => {
             section.classList.remove('visible');
         }, delay);
     }
 
+
     /**
-     * Add visible class for current active section
+     * Assign active class for current active nav link
      */
-    addVisibleClass(section, delayTime) {
-        const delay = this.isHomeSection ? delayTime : 0;
-        setTimeout(() => {
-            section.classList.add('visible');
-        }, delay);
+    addNavigationActiveClass(link) {
+        link.parentElement.classList.add('active');
+    }
+
+
+    /**
+     * Remove active class from every navigation link
+     */
+    removeNavigationActiveClasses() {
+        this.navLinks.forEach(navLink => {
+            navLink.parentElement.classList.remove('active');
+        });
     }
 }
