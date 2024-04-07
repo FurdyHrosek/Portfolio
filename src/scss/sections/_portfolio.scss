@@ -7,8 +7,9 @@
 
         h2 {
             font-size: 20px;
-            padding: 0 30px 25px;
+            padding: 0 30px 20px;
             border-bottom: 1px solid $color-red-primary;
+            color: $color-font-primary;
             &::after {
                 display: none !important;
             }
