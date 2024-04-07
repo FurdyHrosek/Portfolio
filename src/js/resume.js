@@ -64,6 +64,8 @@ export default class Resume {
     
         workDesc.style.display = 'block';
 
+        clearTimeout(this.mouseOutTimeout);
+
         const offset = this.calculateWorkOffset(closestWork, workDescHeight);
 
         workDescWrapper.style.maxHeight = '0';
@@ -84,18 +86,18 @@ export default class Resume {
      */
     handleMouseOut(event, closestWork, workHelper) {
         const workDesc = event.target.closest('.tree').querySelector('.tree-description');
-
+    
         if (!workDesc) return;
-
+    
         const workDescWrapper = workDesc.querySelector('.tree-description-wrapper');
     
-        setTimeout(() => {
+        this.mouseOutTimeout = setTimeout(() => {
             workDesc.style.display = 'none';
         }, globalTransition);
-
+    
         this.startDescriptionAnimation(workDescWrapper, 0, workAnimationDuration, 'out');
         workHelper.style.setProperty('--work-helper-height', workOriginalHeight + 'px');
-
+    
         this.moveFollowingWorks(0, closestWork);
     }
 
