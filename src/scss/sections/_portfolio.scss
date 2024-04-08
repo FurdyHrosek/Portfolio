@@ -51,7 +51,7 @@
         .projects-wrap {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr;
-            gap: 20px;
+            gap: 35px;
             margin: 40px 0 90px;
             .project {
                 position: relative;
@@ -100,7 +100,7 @@
                     position: absolute;
                     top: 0;
                     left: 0;
-                    width: 100%;
+                    width: max-content;
                     height: 100%;
 
                     img {

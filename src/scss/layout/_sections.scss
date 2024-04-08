@@ -4,14 +4,18 @@ section {
     justify-content: center;
     opacity: 0;
 
-    width: 100%;
+    width: auto;
+
+    &#resume {
+        width: 100% !important;
+    }
+    
     max-width: 1460px;
 
     transition: ease-in-out 0.4s;
 
     top: calc($header-top-height + 80px);
-    margin: 0 220px;
-    padding: 20px;
+    padding: 30px;
 
     background-color: $color-background-black;
 

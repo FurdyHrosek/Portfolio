@@ -1,7 +1,7 @@
 import { globalTransition, 
-         treesHeightOffset, 
-         workOriginalHeight, 
-         workAnimationDuration } from '../_config.js';
+         treeHeightOffset, 
+         treeOriginalHeight, 
+         treeAnimationDuration } from '../_config.js';
 
 import Helpers from '../_helpers.js';
 
@@ -14,7 +14,7 @@ export default class Resume {
         this.treeContents = document.querySelectorAll('.tree-content');
 
         this.setResumeTreesHeight();
-        this.handleTreeInfoboxesPositioning();
+        this.handleInfoboxesPositioning();
         this.handleTreePositioning();
         this.handleVisibleTree();
         this.setupTreeHelpers();
@@ -61,6 +61,7 @@ export default class Resume {
      */
     handleMouseOver(event, closestWork, workHelper) {
         const workDesc = event.target.closest('.tree').querySelector('.tree-description');
+        workDesc.classList.add('hovered');
 
         if (!workDesc) return;
 
@@ -77,11 +78,11 @@ export default class Resume {
         workDescWrapper.style.maxHeight = '0';
         workDescWrapper.style.overflow = 'hidden';
 
-        const newHeight = offset > 0 ? workOriginalHeight + offset : workOriginalHeight;
+        const newHeight = offset > 0 ? treeOriginalHeight + offset : treeOriginalHeight;
         workHelper.style.setProperty('--tree-helper-height', newHeight + 'px');
 
         const workDescScrollHeight = workDescWrapper.scrollHeight;
-        this.startDescriptionAnimation(workDescWrapper, workDescScrollHeight, workAnimationDuration, 'over');
+        this.startDescriptionAnimation(workDescWrapper, workDescScrollHeight, treeAnimationDuration, 'over');
 
         this.moveFollowingWorks(offset, closestWork);
     }
@@ -99,10 +100,11 @@ export default class Resume {
     
         this.mouseOutTimeout = setTimeout(() => {
             workDesc.style.display = 'none';
+            workDesc.classList.remove('hovered');
         }, globalTransition);
     
-        this.startDescriptionAnimation(workDescWrapper, 0, workAnimationDuration, 'out');
-        workHelper.style.setProperty('--tree-helper-height', workOriginalHeight + 'px');
+        this.startDescriptionAnimation(workDescWrapper, 0, treeAnimationDuration, 'out');
+        workHelper.style.setProperty('--tree-helper-height', treeOriginalHeight + 'px');
     
         this.moveFollowingWorks(0, closestWork);
     }
@@ -153,7 +155,7 @@ export default class Resume {
 
 
     /**
-     * Display description, get its height and hide it again
+     * Display description, get its height and revert back to original display
      */
     getWorkDescriptionHeight(workDescription) {
         const originalDisplay = workDescription.style.display;
@@ -182,7 +184,7 @@ export default class Resume {
         this.trees.forEach(work => {
             (!foundCurrentWork && work === currentWork)
                 ? foundCurrentWork = true
-                : offset = descHeight - workOriginalHeight;
+                : offset = descHeight - treeOriginalHeight;
         });
 
         return offset;
@@ -283,7 +285,7 @@ export default class Resume {
     /**
      * Assign left/right classes to infoboxes based on their parity
      */
-    handleTreeInfoboxesPositioning() {
+    handleInfoboxesPositioning() {
         this.trees.forEach((infobox, index) => 
             infobox.classList.add(index % 2 === 0 ? 'left' : 'right'));
     }
@@ -298,6 +300,6 @@ export default class Resume {
 
         const visibleTreeHeight = visibleTree.clientHeight;
 
-        resumeTrees.style.height = visibleTreeHeight + treesHeightOffset + 'px';
+        resumeTrees.style.height = visibleTreeHeight + treeHeightOffset + 'px';
     }
 }
