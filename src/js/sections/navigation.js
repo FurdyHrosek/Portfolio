@@ -2,7 +2,7 @@ import { globalTransition,
          homeAppearanceDelay, 
          hackerEffectInterval } from '../_config.js';
 
-export default class Header {
+export default class Navigation {
     constructor() {
         this.navLinks = document.querySelectorAll('.nav-link');
         this.sections = document.querySelectorAll('section');
@@ -14,6 +14,7 @@ export default class Header {
         this.scrollOnNavigationClick();
         this.hackerEffect();
     }
+
 
     /**
      * Mouseover effect for nav links to show changing letters until they reach original text

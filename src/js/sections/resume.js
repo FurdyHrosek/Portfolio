@@ -8,16 +8,77 @@ import Helpers from '../_helpers.js';
 export default class Resume {
     constructor() {
         this.helpers = new Helpers();
-
+    
         this.resumeButtons = document.querySelectorAll('.resume-btn');
         this.trees = document.querySelectorAll('.tree');
         this.treeContents = document.querySelectorAll('.tree-content');
-
-        this.setResumeTreesHeight();
+    
+        this.shouldTriggerResize = false;
+        
         this.handleInfoboxesPositioning();
         this.handleTreePositioning();
         this.handleVisibleTree();
         this.setupTreeHelpers();
+        this.setupWindowHandler();
+    }
+
+    setupWindowHandler() {
+        this.checkWindowWidth();
+        
+        this.handleWindowResize(true);
+
+        this.resumeButtons.forEach(btn => btn.addEventListener('click', this.resetHelpersHeight.bind(this)))
+        
+        this.handleWindowResize = this.handleWindowResize.bind(this);
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', event => {
+                const targetId = event.target.getAttribute('href').substring(1);
+
+                if (targetId === 'resume') {
+                    window.addEventListener('resize', this.handleWindowResize);
+                } else {
+                    window.removeEventListener('resize', this.handleWindowResize);
+                }
+            })
+        })
+    }
+
+    handleWindowResize(force) {
+        if (this.shouldTriggerResize || force) {
+            this.setResumeTreesHeight();
+            this.resetHelpersHeight();
+        }
+    }
+
+    checkWindowWidth() {
+        const windowWidth = window.innerWidth;
+
+        if (windowWidth === 1200) {
+            this.shouldTriggerResize = true;
+        } else {
+            this.shouldTriggerResize = false;
+        }
+
+        setTimeout(() => {
+            this.checkWindowWidth();
+        }, 1000);
+    }
+
+    resetHelpersHeight() {
+        document.querySelectorAll('.tree-helper').forEach(helper => {
+            if (window.innerWidth >= 1199) {
+                helper.classList.remove('static');
+                helper.style.setProperty('--tree-helper-height', treeOriginalHeight + 'px');
+            } else {
+                helper.classList.add('static');
+                const closeTreeWrapper = helper.parentElement;
+                const wrapperHeight = closeTreeWrapper.clientHeight;
+    
+                helper.style.setProperty('--tree-helper-height', wrapperHeight + 20 + 'px');
+            }
+        })
     }
 
 
@@ -61,9 +122,10 @@ export default class Resume {
      */
     handleMouseOver(event, closestWork, workHelper) {
         const workDesc = event.target.closest('.tree').querySelector('.tree-description');
-        workDesc.classList.add('hovered');
 
         if (!workDesc) return;
+
+        workDesc.classList.add('hovered');
 
         const workDescWrapper = workDesc.querySelector('.tree-description-wrapper');
 
