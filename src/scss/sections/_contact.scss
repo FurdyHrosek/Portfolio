@@ -1,9 +1,21 @@
 #contact {
+    width: 100% !important;
+
+    .container {
+        @include max-xl {
+            margin: 0 30px;
+        }
+    }
+
     .contact-data {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 15px;
         margin-top: 40px;
+
+        @include max-md {
+            grid-template-columns: 1fr !important;
+        }
 
         .contact-info {
             display: grid;
@@ -75,7 +87,7 @@
         flex-direction: column;
 
         margin-top: 40px;
-        padding: 30px 20px 20px;
+        padding: 30px;
         gap: 15px;
 
         background-color: $color-background-icon;
@@ -84,7 +96,14 @@
             border: 1px solid $color-background-icon;
             transition: all 0.3s ease-in-out 0s;
 
-            input {
+            textarea {
+                padding-top: 15px !important;
+                min-height: 75px !important;
+                resize: vertical;
+            }
+
+            input,
+            textarea {
                 width: calc(100% - 40px);
                 height: 50px;
                 border: 0;
@@ -112,6 +131,10 @@
 
             width: 100%;
 
+            @include max-md {
+                flex-direction: column !important;
+            }
+
             .form-data {
                 width: 100%;
             }
@@ -122,7 +145,7 @@
             flex-direction: row;
             justify-content: flex-end;
             align-items: center;
-            margin-top: 5px;
+            margin-top: 15px;
 
             transition: $trans;
 

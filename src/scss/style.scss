@@ -1,5 +1,6 @@
 @use "sass:math";
 
+@import 'mixins/index';
 @import 'base/index';
 @import 'components/index';
 @import 'layout/index';

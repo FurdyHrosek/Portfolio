@@ -1,6 +1,6 @@
 import emailjs from 'emailjs-com';
-import Helpers from './_helpers.js';
-import { messageTerminationDelay } from './_config.js';
+import Helpers from '../_helpers.js';
+import { messageTerminationDelay } from '../_config.js';
 
 export default class Contact {
     constructor() {
@@ -28,13 +28,55 @@ export default class Contact {
                 }
     
                 this.helpers.createLoader(this.formBtn);
-                this.blockFormBtn();
+                this.disableFormBtn();
                 this.sendEmail();
             } else {
                 const requiredMsg = this.createFormMsg();
                 requiredMsg.textContent = 'Something went wrong in the contact form!'
             }
         });
+    }
+    
+
+    /**
+     * Send email with custom data
+     */
+    sendEmail() {
+        const userName = this.contactForm.querySelector('#form-name').value;
+        const userEmail = this.contactForm.querySelector('#form-email').value;
+        const emailSubject = this.contactForm.querySelector('#form-subject').value;
+        const emailMessage = this.contactForm.querySelector('#form-message').value;
+
+        const emailParams = {
+            serviceID: 'service_w68tij9',
+            templateID: 'template_x147p0g', 
+            templateParams: {
+                to_name: 'Martin Houdek',
+                from_name: userName,
+                user_email: userEmail,
+                subject: emailSubject,
+                message: emailMessage
+            }
+        };
+
+        emailjs.send(emailParams.serviceID, emailParams.templateID, emailParams.templateParams)
+            .then(
+                (response) => {
+                    this.removeEmailLoader();
+                    this.enableFormBtn();
+
+                    const successMsg = this.createFormMsg();
+                    successMsg.textContent = 'Email successfully sent!';
+                },
+                (error) => {
+                    this.enableFormBtn();
+
+                    const failMsg = this.createFormMsg();
+                    failMsg.textContent = 'Email was not sent!';
+
+                    console.error('sendEmail | Error:', error);
+                }
+            );
     }
 
 
@@ -70,48 +112,6 @@ export default class Contact {
     
         return inputsFilled && emailValid;
     }
-    
-
-    /**
-     * Send email with custom data
-     */
-    sendEmail() {
-        const userName = this.contactForm.querySelector('#form-name').value;
-        const userEmail = this.contactForm.querySelector('#form-email').value;
-        const emailSubject = this.contactForm.querySelector('#form-subject').value;
-        const emailMessage = this.contactForm.querySelector('#form-message').value;
-
-        const emailParams = {
-            serviceID: 'service_2imjab7',
-            templateID: 'template_x147p0g', 
-            templateParams: {
-                to_name: 'Martin Houdek',
-                from_name: userName,
-                user_email: userEmail,
-                subject: emailSubject,
-                message: emailMessage
-            }
-        };
-
-        emailjs.send(emailParams.serviceID, emailParams.templateID, emailParams.templateParams)
-            .then(
-                (response) => {
-                    this.removeEmailLoader();
-                    this.unblockFormBtn();
-
-                    const successMsg = this.createFormMsg();
-                    successMsg.textContent = 'Email successfully sent!';
-                },
-                (error) => {
-                    this.unblockFormBtn();
-
-                    const failMsg = this.createFormMsg();
-                    failMsg.textContent = 'Email was not sent!';
-
-                    console.error('sendEmail | Error:', error);
-                }
-            );
-    }
 
     
     /**
@@ -143,17 +143,27 @@ export default class Contact {
         }, messageTerminationDelay);
     }
 
-
+    /**
+     * Remove e-mail loader
+     */
     removeEmailLoader() {
         const loader = this.contactForm.querySelector('.loader');
         loader.remove();
     }
 
-    unblockFormBtn() {
+    
+    /**
+     * Enable form button
+     */
+    enableFormBtn() {
         this.formBtn.disabled = false;
     }
 
-    blockFormBtn() {
+
+    /**
+     * Disable form button
+     */
+    disableFormBtn() {
         this.formBtn.disabled = true;
     }
 

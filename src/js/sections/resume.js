@@ -1,19 +1,84 @@
 import { globalTransition, 
-        treesHeightOffset, 
-        workOriginalHeight, 
-        workAnimationDuration } from './_config.js';
+         treeHeightOffset, 
+         treeOriginalHeight, 
+         treeAnimationDuration } from '../_config.js';
+
+import Helpers from '../_helpers.js';
 
 export default class Resume {
     constructor() {
+        this.helpers = new Helpers();
+    
         this.resumeButtons = document.querySelectorAll('.resume-btn');
         this.trees = document.querySelectorAll('.tree');
         this.treeContents = document.querySelectorAll('.tree-content');
-
-        this.handleVisibleTree();
+    
+        this.shouldTriggerResize = false;
+        
+        this.handleInfoboxesPositioning();
         this.handleTreePositioning();
-        this.setResumeTreesHeight();
-        this.handleInfoboxParity();
+        this.handleVisibleTree();
         this.setupTreeHelpers();
+        this.setupWindowHandler();
+    }
+
+    setupWindowHandler() {
+        this.checkWindowWidth();
+        
+        this.handleWindowResize(true);
+
+        this.resumeButtons.forEach(btn => btn.addEventListener('click', this.resetHelpersHeight.bind(this)))
+        
+        this.handleWindowResize = this.handleWindowResize.bind(this);
+
+        const navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(link => {
+            link.addEventListener('click', event => {
+                const targetId = event.target.getAttribute('href').substring(1);
+
+                if (targetId === 'resume') {
+                    window.addEventListener('resize', this.handleWindowResize);
+                } else {
+                    window.removeEventListener('resize', this.handleWindowResize);
+                }
+            })
+        })
+    }
+
+    handleWindowResize(force) {
+        if (this.shouldTriggerResize || force) {
+            this.setResumeTreesHeight();
+            this.resetHelpersHeight();
+        }
+    }
+
+    checkWindowWidth() {
+        const windowWidth = window.innerWidth;
+
+        if (windowWidth === 1200) {
+            this.shouldTriggerResize = true;
+        } else {
+            this.shouldTriggerResize = false;
+        }
+
+        setTimeout(() => {
+            this.checkWindowWidth();
+        }, 1000);
+    }
+
+    resetHelpersHeight() {
+        document.querySelectorAll('.tree-helper').forEach(helper => {
+            if (window.innerWidth >= 1199) {
+                helper.classList.remove('static');
+                helper.style.setProperty('--tree-helper-height', treeOriginalHeight + 'px');
+            } else {
+                helper.classList.add('static');
+                const closeTreeWrapper = helper.parentElement;
+                const wrapperHeight = closeTreeWrapper.clientHeight;
+    
+                helper.style.setProperty('--tree-helper-height', wrapperHeight + 20 + 'px');
+            }
+        })
     }
 
 
@@ -22,29 +87,31 @@ export default class Resume {
      */
     setupTreeHelpers() {
         const treeHelpers = document.querySelectorAll('.tree-helper');
-        treeHelpers.forEach(workHelper => {
-            const closestWork = workHelper.closest('.tree');
+        treeHelpers.forEach(helper => {
+            const closeTree = helper.closest('.tree');
 
-            workHelper.addEventListener('mouseover', event => {
-                this.handleMouseOver(event, closestWork, workHelper);
+            this.createGlowpoint(helper);
+
+            helper.addEventListener('mouseover', event => {
+                this.handleMouseOver(event, closeTree, helper);
             });
 
-            workHelper.addEventListener('mouseout', event => {
-                this.handleMouseOut(event, closestWork, workHelper);
+            helper.addEventListener('mouseout', event => {
+                this.handleMouseOut(event, closeTree, helper);
             });
         });
 
         const treePositions = document.querySelectorAll('.tree-position');
-        treePositions.forEach(workPosition => {
-            const closestWork = workPosition.closest('.tree');
-            const closestWorkHelper = closestWork.querySelector('.tree-helper')
+        treePositions.forEach(position => {
+            const closeTree = position.closest('.tree');
+            const closeTreeHelper = closeTree.querySelector('.tree-helper')
 
-            workPosition.addEventListener('mouseover', event => {
-                this.handleMouseOver(event, closestWork, closestWorkHelper);
+            position.addEventListener('mouseover', event => {
+                this.handleMouseOver(event, closeTree, closeTreeHelper);
             });
 
-            workPosition.addEventListener('mouseout', event => {
-                this.handleMouseOut(event, closestWork, closestWorkHelper);
+            position.addEventListener('mouseout', event => {
+                this.handleMouseOut(event, closeTree, closeTreeHelper);
             });
         })
     }
@@ -58,22 +125,26 @@ export default class Resume {
 
         if (!workDesc) return;
 
+        workDesc.classList.add('hovered');
+
         const workDescWrapper = workDesc.querySelector('.tree-description-wrapper');
 
         const workDescHeight = this.getWorkDescriptionHeight(workDesc);
     
         workDesc.style.display = 'block';
 
+        clearTimeout(this.mouseOutTimeout);
+
         const offset = this.calculateWorkOffset(closestWork, workDescHeight);
 
         workDescWrapper.style.maxHeight = '0';
         workDescWrapper.style.overflow = 'hidden';
 
-        const newHeight = offset > 0 ? workOriginalHeight + offset : workOriginalHeight;
-        workHelper.style.setProperty('--work-helper-height', newHeight + 'px');
+        const newHeight = offset > 0 ? treeOriginalHeight + offset : treeOriginalHeight;
+        workHelper.style.setProperty('--tree-helper-height', newHeight + 'px');
 
         const workDescScrollHeight = workDescWrapper.scrollHeight;
-        this.startDescriptionAnimation(workDescWrapper, workDescScrollHeight, workAnimationDuration, 'over');
+        this.startDescriptionAnimation(workDescWrapper, workDescScrollHeight, treeAnimationDuration, 'over');
 
         this.moveFollowingWorks(offset, closestWork);
     }
@@ -84,18 +155,19 @@ export default class Resume {
      */
     handleMouseOut(event, closestWork, workHelper) {
         const workDesc = event.target.closest('.tree').querySelector('.tree-description');
-
+    
         if (!workDesc) return;
-
+    
         const workDescWrapper = workDesc.querySelector('.tree-description-wrapper');
     
-        setTimeout(() => {
+        this.mouseOutTimeout = setTimeout(() => {
             workDesc.style.display = 'none';
+            workDesc.classList.remove('hovered');
         }, globalTransition);
-
-        this.startDescriptionAnimation(workDescWrapper, 0, workAnimationDuration, 'out');
-        workHelper.style.setProperty('--work-helper-height', workOriginalHeight + 'px');
-
+    
+        this.startDescriptionAnimation(workDescWrapper, 0, treeAnimationDuration, 'out');
+        workHelper.style.setProperty('--tree-helper-height', treeOriginalHeight + 'px');
+    
         this.moveFollowingWorks(0, closestWork);
     }
 
@@ -145,7 +217,7 @@ export default class Resume {
 
 
     /**
-     * Display description, get its height and hide it again
+     * Display description, get its height and revert back to original display
      */
     getWorkDescriptionHeight(workDescription) {
         const originalDisplay = workDescription.style.display;
@@ -174,32 +246,54 @@ export default class Resume {
         this.trees.forEach(work => {
             (!foundCurrentWork && work === currentWork)
                 ? foundCurrentWork = true
-                : offset = descHeight - workOriginalHeight;
+                : offset = descHeight - treeOriginalHeight;
         });
 
         return offset;
     }
 
-
+    
     /**
-     * Add even or odd class to infoboxes
+     * Creates glowpoint for each tree helper to animate pulsing in SCSS
      */
-    handleInfoboxParity() {
-        this.trees.forEach((infobox, index) => 
-            infobox.classList.add(index % 2 === 0 ? 'even' : 'odd'));
+    createGlowpoint(helper) {
+        const glowpoint = this.helpers.createDOMElement('tr', {
+            classes: ['glowpoint']
+        });
+        helper.appendChild(glowpoint);
+
+        for (let i = 1; i <= 10; i++) {
+            const styleSpan = this.helpers.createDOMElement('td', {
+                style: `--i:${i};`
+            });
+            glowpoint.appendChild(styleSpan);
+        }
     }
 
 
     /**
-     * Sets height of the entire resume-trees container as the trees are positioned absolutely
+     * Handle visible tree class based on the clicked tree button
      */
-    setResumeTreesHeight() {
-        const resumeTrees = document.querySelector('.resume-trees');
-        const visibleTree = document.querySelector('.tree-content.visible');
+    handleVisibleTree() {
+        this.resumeButtons.forEach(button => {
+            button.addEventListener('click', event => {
+                const targetId = event.target.getAttribute('data-target');
+                if (targetId) {
+                    this.resumeButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    event.target.classList.add('active');
+                    
+                    this.treeContents.forEach(content => {
+                        content.classList.remove('visible');
+                    });
+                    document.getElementById(targetId).classList.add('visible');
+                }
 
-        const visibleTreeHeight = visibleTree.clientHeight;
-
-        resumeTrees.style.height = visibleTreeHeight + treesHeightOffset + 'px';
+                this.handleTreePositioning();
+                this.setResumeTreesHeight();
+            });
+        });
     }
 
 
@@ -248,30 +342,26 @@ export default class Resume {
             });
         }
     }
-    
+
 
     /**
-     * Handle visible tree class based on the clicked tree button
+     * Assign left/right classes to infoboxes based on their parity
      */
-    handleVisibleTree() {
-        this.resumeButtons.forEach(button => {
-            button.addEventListener('click', event => {
-                const targetId = event.target.getAttribute('data-target');
-                if (targetId) {
-                    this.resumeButtons.forEach(btn => {
-                        btn.classList.remove('active');
-                    });
-                    event.target.classList.add('active');
-                    
-                    this.treeContents.forEach(content => {
-                        content.classList.remove('visible');
-                    });
-                    document.getElementById(targetId).classList.add('visible');
-                }
+    handleInfoboxesPositioning() {
+        this.trees.forEach((infobox, index) => 
+            infobox.classList.add(index % 2 === 0 ? 'left' : 'right'));
+    }
 
-                this.handleTreePositioning();
-                this.setResumeTreesHeight();
-            });
-        });
+
+    /**
+     * Sets height of the entire resume-trees container as the trees are positioned absolutely
+     */
+    setResumeTreesHeight() {
+        const resumeTrees = document.querySelector('.resume-trees');
+        const visibleTree = document.querySelector('.tree-content.visible');
+
+        const visibleTreeHeight = visibleTree.clientHeight;
+
+        resumeTrees.style.height = visibleTreeHeight + treeHeightOffset + 'px';
     }
 }

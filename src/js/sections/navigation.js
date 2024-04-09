@@ -1,6 +1,8 @@
-import { homeAppearanceDelay, hackerEffectInterval } from './_config.js';
+import { globalTransition,
+         homeAppearanceDelay, 
+         hackerEffectInterval } from '../_config.js';
 
-export default class Header {
+export default class Navigation {
     constructor() {
         this.navLinks = document.querySelectorAll('.nav-link');
         this.sections = document.querySelectorAll('section');
@@ -11,7 +13,38 @@ export default class Header {
         this.setupNavigation();
         this.scrollOnNavigationClick();
         this.hackerEffect();
+        this.handleNavigationMenu();
     }
+
+
+    handleNavigationMenu() {
+        const nav = document.querySelector('nav');
+
+        const toggleMobileClass = () => {
+            nav.classList.toggle('mobile', window.innerWidth < 768);
+        }
+
+        toggleMobileClass();
+
+        window.addEventListener('resize', () => {
+            toggleMobileClass();
+        })
+
+        const navHelper = document.querySelector('.nav-helper');
+        const navMenu = document.querySelector('nav ul');
+
+        navHelper.addEventListener('click', () => {
+            navMenu.classList.toggle('visible');
+            document.body.classList.toggle('nav-open');
+        });
+
+        this.navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('visible');
+            })
+        })
+    }
+
 
     /**
      * Mouseover effect for nav links to show changing letters until they reach original text
@@ -104,15 +137,15 @@ export default class Header {
      */
     handleNavigationClick(navLink) {
         const targetSectionID = navLink.getAttribute('href').substring(1);
-        this.hideAllSections(homeAppearanceDelay);
+        this.hideAllSections(homeAppearanceDelay, globalTransition);
         
         const targetSection = document.getElementById(targetSectionID);
         
         if (targetSection) {
-            this.showSection(targetSection);
+            this.removeNavigationActiveClasses();
+            this.addNavigationActiveClass(navLink);
             this.toggleHeaderTopClass(targetSectionID);
-            this.removeActiveClass();
-            this.addActiveClass(navLink);
+            this.showSection(targetSection);
             this.isHomeSection = navLink === document.querySelector('.nav-link[href="#home"]');
         }
     }
@@ -123,26 +156,34 @@ export default class Header {
      */
     handleHomeLinkClick(homeLink) {
         this.header.classList.remove('header-top');
-        this.removeActiveClass();
-        this.addActiveClass(homeLink);
-        this.hideAllSections(homeAppearanceDelay);
+        this.removeNavigationActiveClasses();
+        this.addNavigationActiveClass(homeLink);
+        this.hideAllSections(homeAppearanceDelay, 0);
         this.isHomeSection = true;
     }
 
 
     /**
-     * Show or Hide all sections
+     * Show selected section
      */
-    hideAllSections(delayTime) {
-        this.sections.forEach(section => {
-            section.style.display = 'none';
-            this.removeShownClass(section, delayTime);
-        });
-    }
-
     showSection(section) {
         section.style.display = 'block';
-        this.addShownClass(section, homeAppearanceDelay);
+        this.addSectionVisibleClass(section, homeAppearanceDelay);
+    }
+
+
+    /**
+     * Hide all sections
+     */
+    hideAllSections(delayTime, fadingDelay) {
+        this.sections.forEach(section => {
+            if (section.classList.contains('visible')) {
+                this.handleSectionFadingClass(section, fadingDelay);
+            }
+
+            section.style.display = 'none';
+            this.removeSectionVisibleClass(section, delayTime);
+        });
     }
 
 
@@ -155,33 +196,55 @@ export default class Header {
 
 
     /**
-     * Handle active class for current active nav link
+     * Handle fading class when switching to another section
      */
-    removeActiveClass() {
-        this.navLinks.forEach(navLink => {
-            navLink.parentElement.classList.remove('active');
-        });
+    handleSectionFadingClass(section, delay) {
+        section.classList.add('fading');
+
+        this.removeSectionVisibleClass(section, globalTransition)
+
+        setTimeout(() => {
+            section.classList.remove('fading');
+        }, delay)
+    }   
+
+
+    /**
+     * Assign visible class to selected section
+     */
+    addSectionVisibleClass(section, delayTime) {
+        const delay = this.isHomeSection ? delayTime : 0;
+        setTimeout(() => {
+            section.classList.add('visible');
+        }, delay);
     }
 
-    addActiveClass(link) {
+
+    /**
+     * Remove visible class from selected section
+     */
+    removeSectionVisibleClass(section, delayTime = 0) {
+        const delay = this.isHomeSection ? delayTime : 0;
+        setTimeout(() => {
+            section.classList.remove('visible');
+        }, delay);
+    }
+
+
+    /**
+     * Assign active class for current active nav link
+     */
+    addNavigationActiveClass(link) {
         link.parentElement.classList.add('active');
     }
 
 
     /**
-     * Handle shown class for current active section
+     * Remove active class from every navigation link
      */
-    removeShownClass(section, delayTime = 0) {
-        const delay = this.isHomeSection ? delayTime : 0;
-        setTimeout(() => {
-            section.classList.remove('shown');
-        }, delay);
-    }
-
-    addShownClass(section, delayTime) {
-        const delay = this.isHomeSection ? delayTime : 0;
-        setTimeout(() => {
-            section.classList.add('shown');
-        }, delay);
+    removeNavigationActiveClasses() {
+        this.navLinks.forEach(navLink => {
+            navLink.parentElement.classList.remove('active');
+        });
     }
 }

@@ -2,6 +2,14 @@ body {
     background-color: $color-background;
     margin: 0;
 
+    &.modal-open {
+        overflow: hidden;
+
+        section {
+            display: none !important;
+        }
+    }
+
     .content-wrapper {
         display: flex;
         justify-content: center;
@@ -23,7 +31,14 @@ h6 {
     color: $color-font-primary;
 }
 
-p, a, span, li, i {
+div,
+p, 
+a, 
+span, 
+li, 
+i, 
+input, 
+textarea {
     font-family: monospace;
     color: $color-font-primary;
 }

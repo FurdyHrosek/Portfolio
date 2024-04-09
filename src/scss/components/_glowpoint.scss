@@ -1,0 +1,97 @@
+.tree-helper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &.work-helper {
+        td {
+            &::before {
+                background: $color-red-primary;
+                box-shadow: 0 0 2px $color-red-primary,
+                            0 0 4px $color-red-primary,
+                            0 0 8px $color-red-primary,
+                            0 0 12px $color-red-primary,
+                            0 0 16px $color-red-primary,
+                            0 0 24px $color-red-primary;
+            }
+        }
+    }
+    &.edu-helper {
+        td {
+            &::before {
+                background: $color-orange-primary;
+                box-shadow: 0 0 2px $color-orange-primary,
+                            0 0 4px $color-orange-primary,
+                            0 0 8px $color-orange-primary,
+                            0 0 12px $color-orange-primary,
+                            0 0 16px $color-orange-primary,
+                            0 0 24px $color-orange-primary;
+            }
+        }
+    }
+    &.vol-helper {
+        td {
+            &::before {
+                background: $color-purple-primary;
+                box-shadow: 0 0 4px $color-purple-primary,
+                            0 0 6px $color-purple-primary,
+                            0 0 8px $color-purple-primary,
+                            0 0 12px $color-purple-primary,
+                            0 0 16px $color-purple-primary,
+                            0 0 24px $color-purple-primary;
+            }
+        }
+    }
+    
+    .glowpoint {
+        position: absolute;
+        width: 17px;
+        height: 17px;
+
+        inset: 1px 0 0 1px;
+
+        td {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            transform: rotate(calc(36deg * var(--i)));
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 4.5px;
+                height: 4.5px;
+                border-radius: 50%;
+                animation: animateGlowpoint 1.75s linear infinite;
+            }
+        }
+    }
+}
+
+@keyframes animateGlowpoint {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    25% {
+        transform: scale(0.5);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    75% {
+        transform: scale(0.5);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+

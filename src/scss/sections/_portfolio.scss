@@ -1,4 +1,4 @@
-#portfolio {
+#portfolio {    
     .section-header {
         display: flex;
         align-items: center;
@@ -7,8 +7,9 @@
 
         h2 {
             font-size: 20px;
-            padding: 0 30px 25px;
-            border-bottom: 1px solid $color-border;
+            padding: 0 30px 20px;
+            border-bottom: 1px solid $color-red-primary;
+            color: $color-font-primary;
             &::after {
                 display: none !important;
             }
@@ -29,7 +30,7 @@
               border: 0;
       
               cursor: pointer;
-              font-size: 14px !important;
+              font-size: 11px !important;
               text-transform: uppercase;
               letter-spacing: 3px;
               transition: $trans;
@@ -47,10 +48,46 @@
 
     .projects-content {
         margin-top: 60px;
+
+        @include max-md {
+            .section-title {
+                h2 {
+                    &::after {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+
+        .projects {
+            @include max-md {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+                .section-title {
+                    width: 100%;
+                }
+            }
+        }
         .projects-wrap {
             display: grid;
             grid-template-columns: 1fr 1fr 1fr 1fr;
-            gap: 20px;
+            width: max-content;
+
+            @include max-md {
+                grid-template-columns: 1fr;
+            }
+
+            @include range-lg {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            @include range-xl {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+
+            gap: 35px;
             margin: 40px 0 90px;
             .project {
                 position: relative;
@@ -59,6 +96,7 @@
                 justify-content: center;
                 align-items: center;
 
+                width: 300px;
                 height: 150px;
                 padding: 20px;
 
@@ -71,7 +109,7 @@
                     * {
                         .project-name,
                         .project-rights {
-                            display: none;
+                            opacity: 0;
                         }
                         img {
                             opacity: 1 !important;
@@ -99,7 +137,7 @@
                     position: absolute;
                     top: 0;
                     left: 0;
-                    width: 100%;
+                    width: max-content;
                     height: 100%;
 
                     img {

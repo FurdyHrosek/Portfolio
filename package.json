@@ -14,9 +14,10 @@
     "@babel/core": "^7.24.4",
     "@babel/preset-env": "^7.24.3",
     "babel-loader": "^8.3.0",
+    "copy-webpack-plugin": "^12.0.2",
     "core-js": "^3.36.1",
-    "dockerode": "^4.0.2",
     "css-loader": "^6.11.0",
+    "dockerode": "^4.0.2",
     "sass": "^1.72.0",
     "sass-loader": "^12.6.0",
     "sass-math": "^1.0.0",
@@ -27,6 +28,7 @@
   },
   "dependencies": {
     "emailjs-com": "^3.2.0",
+    "netlify": "^13.1.14",
     "regenerator-runtime": "^0.13.11"
   },
   "browserslist": [

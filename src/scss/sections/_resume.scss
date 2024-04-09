@@ -3,6 +3,10 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
+
+    @include max-xl {
+      margin: 0 30px;
+    }
     
     .resume-buttons {
       display: flex;
@@ -10,9 +14,18 @@
       gap: 40px;
       margin-top: 30px;
 
+      @include max-sm {
+        gap: 20px;
+      }
+
       .resume-btn {
-        width: max-content;
+        width: 150px;
         padding: 10px;
+
+        @include max-sm {
+          width: max-content;
+          font-size: 10px;
+        }
 
         background-color: $color-background-black;
         color: $color-font-primary;
@@ -26,31 +39,31 @@
 
         &.work-btn {
           &:hover {
-            border-bottom: 1px solid $color-border;
+            border-bottom: 1px solid $color-red-primary;
           }
   
           &.active {
-            border-bottom: 1px solid $color-border;
+            border-bottom: 1px solid $color-red-primary;
           }
         }
 
         &.educ-btn {
           &:hover {
-            border-bottom: 1px solid  $color-purple-primary;
+            border-bottom: 1px solid  $color-orange-primary;
           }
   
           &.active {
-            border-bottom: 1px solid  $color-purple-primary;
+            border-bottom: 1px solid  $color-orange-primary;
           }
         }
 
         &.vol-btn {
           &:hover {
-            border-bottom: 1px solid  $color-green-primary;
+            border-bottom: 1px solid  $color-purple-primary;
           }
   
           &.active {
-            border-bottom: 1px solid  $color-green-primary;
+            border-bottom: 1px solid  $color-purple-primary;
           }
         }
       }
@@ -64,6 +77,10 @@
       min-height: 100%;
 
       transition: all 0.15s ease-in-out 0s;
+
+      @include max-lg {
+        align-items: flex-start;
+      }
 
       .tree-content {
         position: absolute;
@@ -79,6 +96,23 @@
         opacity: 0;
 
         transition: all 0.15s ease-in-out 0s;
+
+        @include max-lg {
+          position: relative !important;
+          align-items: flex-start !important;
+          margin-top: 40px !important;
+
+          display: none !important;
+
+          &.visible {
+            display: flex !important;
+          }
+
+          &.left-tree,
+          &.right-tree {
+            left: 0 !important;
+          }
+        }
 
         &.left-tree {
           left: -$resume-tree-offset;
@@ -104,6 +138,13 @@
             .tree {
               &:last-child {
                 .tree-helper {
+                  @include max-lg {
+                    &:last-child {
+                      &::after {
+                        display: none !important;
+                      }
+                    }
+                  }
                   &::after {
                     display: none;
                   }
@@ -115,8 +156,51 @@
             position: relative;
             margin-bottom: $resume-work-gap;
             transition: $trans;
+
+            @include max-xs {
+              * {
+                max-width: 250px !important;
+              }
+            }
+
+            @include range-sm {
+              li {
+                max-width: max-content !important;
+              }
+            }
+
+            @include max-lg {
+              margin-bottom: 30px !important;
+            }
   
-            &.even {
+            &.left {
+              @include max-lg {
+                .tree-infobox {
+                  position: relative !important;
+                  top: -21px !important;
+                  right: 0 !important;
+                  left: $resume-infobox-gap;
+                  text-align: left !important;
+                  align-items: flex-start !important;
+                }
+                .tree-description {
+                  display: flex !important;
+                  position: relative !important;
+                  left: calc($resume-infobox-gap + 10px);
+                  right: 0 !important;
+
+                  .tree-description-wrapper {
+                    max-height: max-content !important;
+                  }
+                }
+                .tree-position {
+                  pointer-events: none;
+                  padding-right: 0 !important;
+                  padding-left: $resume-infobox-gap;
+                  transform: translateX(-$resume-infobox-gap) !important;
+                }
+              }
+
               .tree-infobox {
                 right: $resume-infobox-gap;
                 text-align: right;
@@ -131,7 +215,34 @@
                 transform: translateX($resume-infobox-gap);
               }
             }
-            &.odd {
+            &.right {
+              @include max-lg {
+                .tree-infobox {
+                  position: relative !important;
+                  top: -21px !important;
+                  right: 0 !important;
+                  left: $resume-infobox-gap;
+                  text-align: left !important;
+                  align-items: flex-start !important;
+                }
+                .tree-description {
+                  display: flex !important;
+                  position: relative !important;
+                  left: calc($resume-infobox-gap + 10px);
+                  right: 0 !important;
+
+                  .tree-description-wrapper {
+                    max-height: max-content !important;
+                  }
+                }
+                .tree-position {
+                  pointer-events: none;
+                  padding-right: 0 !important;
+                  padding-left: $resume-infobox-gap;
+                  transform: translateX(-$resume-infobox-gap) !important;
+                }
+              }
+
               .tree-infobox {
                 left: $resume-infobox-gap;
                 text-align: left;
@@ -141,6 +252,7 @@
               .tree-description {
                 right: $resume-infobox-gap;
               }
+              
               .tree-position {
                 padding-left: $resume-infobox-gap;
                 transform: translateX(-$resume-infobox-gap);
@@ -149,27 +261,37 @@
   
             .tree-helper {
               display: block;
-              width: 20px;
-              height: 20px;
+              width: 21px;
+              height: 21px;
               border-radius: 100%;
+
+              &.static {
+                &::after {
+                  transition: none !important;
+                }
+              }
+
+              @include max-lg {
+                pointer-events: none;
+              }
   
               &.work-helper {
                 cursor: pointer;
-                background-color: $color-border;
+                background-color: $color-red-primary;
                 &::after {
-                  background-color: $color-border;
+                  background-color: $color-red-primary;
                 }
               }
               &.edu-helper {
-                background-color: $color-purple-primary;
+                background-color: $color-orange-primary;
                 &::after {
-                  background-color: $color-purple-primary;
+                  background-color: $color-orange-primary;
                 }
               }
               &.vol-helper {
-                background-color: $color-green-primary;
+                background-color: $color-purple-primary;
                 &::after {
-                  background-color: $color-green-primary;
+                  background-color: $color-purple-primary;
                 }
               }
   
@@ -178,10 +300,14 @@
                 display: block;
                 position: relative;
                 top: 100%;
-                left: calc(50% - 1px);
+                left: calc(50% - 0.5px);
                 
                 width: 1px;
-                height: var(--work-helper-height, $resume-work-gap);
+                height: var(--tree-helper-height, $resume-work-gap);
+
+                @include max-lg {
+                  height: var(--tree-helper-height) !important;
+                }
   
                 pointer-events: none;
                 transition: $trans;
@@ -206,10 +332,10 @@
               }
   
               .work-position {
-                color: $color-border;
+                color: $color-red-primary;
               }
               .vol-position {
-                color: $color-green-primary;
+                color: $color-purple-primary;
               }
   
               .tree-company,
@@ -244,7 +370,7 @@
               .edu-school {
                 width: 100%;
                 font-size: 18px;
-                color:  $color-purple-primary;
+                color:  $color-orange-primary;
                 text-transform: uppercase;
               }
             }
@@ -273,6 +399,10 @@
                   width: max-content;
                   max-width: 400px;
                   margin-left: 16px;
+
+                  @include max-sm {
+                    max-width: 300px;
+                  }
                 }
               }
             }

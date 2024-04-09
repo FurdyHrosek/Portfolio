@@ -1,4 +1,20 @@
 /**
+ * SOCIALS
+ */
+
+ .github {
+    &::before {
+        background-image: url('/assets/icons/socials/github.png');
+    }
+ }
+ .linked-in {
+    &::before {
+        background-image: url('/assets/icons/socials/linkedin.png');
+    }
+ }
+
+
+/**
  * ABOUT ME: LIBRARIES
  */
 

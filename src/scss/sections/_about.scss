@@ -10,7 +10,7 @@
             margin: 0 0 70px !important; 
 
             .section-title {
-                margin-bottom: 15px !important;
+                margin-bottom: 20px !important;
             }
         }
 
@@ -18,6 +18,10 @@
             .about-me {
                 display: flex;
                 flex-direction: row;
+
+                @include max-sm {
+                    flex-direction: column !important;
+                }
     
                 gap: 0 30px;
     
@@ -26,6 +30,10 @@
                 }
     
                 .my-description-container {
+                    @include max-sm {
+                        margin-top: 30px;
+                    }
+                    
                     h3 {
                         font-size: 18px;
                         margin-top: 0;
@@ -56,6 +64,10 @@
                 grid-template-columns: 1fr 1fr;
                 gap: 15px 25px;
 
+                @include max-md {
+                    grid-template-columns: 1fr !important;
+                }
+
                 .language-wrapper {
                     .language-title {
                         display: flex;
@@ -78,7 +90,7 @@
                         .progress-bar {
                             height: 10px;
                             width: 0;
-                            background-color: $color-border;
+                            background-color: $color-red-primary;
                         }
                     }
                 }
@@ -102,6 +114,22 @@
                     width: calc(10% - 9px);
                     text-align: center;
                     padding-top: 15px;
+
+                    @include max-sm {
+                        width: calc(33.3% - 9px) !important;
+                    }
+
+                    @include range-md {
+                        width: calc(20% - 9px);
+                    }
+
+                    @include range-lg {
+                        width: calc(20% - 9px);
+                    }
+
+                    @include range-xl {
+                        width: calc(12.5% - 9px);
+                    }
 
                     transition: $trans;
                     background-color: $color-background-icon;
@@ -142,6 +170,18 @@
 
                     width: calc(20% - 8px);
                     height: 60px;
+
+                    @include max-md {
+                        width: calc(50% - 9px) !important;
+                    }
+
+                    @include range-lg {
+                        width: calc(33.3% - 9px);
+                    }
+
+                    @include range-xl {
+                        width: calc(25% - 9px);
+                    }
 
                     transition: $trans;
                     background-color: $color-background-icon;

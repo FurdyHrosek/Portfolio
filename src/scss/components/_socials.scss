@@ -1,0 +1,28 @@
+.social-links,
+#contact-socials {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    a {
+        display: flex;
+        align-items: center;
+
+        &::before {
+            content: '';
+            display: block;
+            width: $socials-icon-size;
+            max-width: $socials-icon-size;
+            height: $socials-icon-size;
+            max-height: $socials-icon-size;
+            background-size: cover;
+            background-position: center;
+        }
+    }
+}
+
+#contact-socials {
+    .contact-socials-list {
+        transform: translateY(5px) !important;
+        gap: 10px;
+    }
+}

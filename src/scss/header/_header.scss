@@ -3,17 +3,27 @@
 	position: relative;
 	align-items: center;
 
-	max-width: 1920px;
+	@include max-md {
+		justify-content: center;
+		
+		* {
+			text-align: center;
+		}
+	}
 
 	flex: 1;
 	z-index: 997;
 	height: 100vh;
-	width: 100%;
+	width: auto;
 
 	transition: $trans;
 	
 	.container {
 		margin: 0 220px;
+
+		@include max-sm {
+			width: max-content;
+		}
 	}
 
 	h1 {
@@ -27,6 +37,10 @@
 		color: $color-font-primary;
 
 		transition: $trans;
+
+		@include max-lg {
+			font-size: 36px;
+		}
 	}
 
 	h2 {
@@ -37,12 +51,20 @@
 
 		.profession {
 			color: #fff;
-			border-bottom: 2px solid $color-border;
+			border-bottom: 2px solid $color-red-primary;
 			padding-bottom: 6px;
+		}
+
+		@include max-md {
+			font-size: 14px;
 		}
 	}
 
 	nav {
+		.nav-helper {
+			display: none;
+		}
+
 		ul {
 			display: flex;
 			flex-direction: row;
@@ -51,6 +73,10 @@
 			padding: 0;
 			margin: 35px 0;
 			gap: 25px;
+
+			@include max-md {
+				justify-content: center;
+			}
 
 			li {
 				position: relative;
@@ -70,7 +96,7 @@
 					bottom: -4px;
 					left: 0;
 					
-					background-color: $color-border;
+					background-color: $color-red-primary;
 					transition: $trans;
 				}
 
@@ -94,6 +120,10 @@
 					white-space: nowrap;
 					text-decoration: none;
 					transition: $trans;
+
+					@include max-md {
+						font-size: 12px;
+					}
 
 					&:hover {
 						color: $color-font-primary;

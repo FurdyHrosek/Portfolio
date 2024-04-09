@@ -5,7 +5,7 @@ import { async } from 'regenerator-runtime';
 import '../scss/style.scss';
 
 import Helpers from './_helpers.js';
-import Navigation from './navigation.js';
+import Navigation from './sections/navigation.js';
 
 
 const init = () => {
@@ -16,7 +16,7 @@ const init = () => {
     const portfolioLink = document.querySelector('a.nav-link[href="#portfolio"]');
     const contactLink = document.querySelector('a.nav-link[href="#contact"]');
 
-    initAboutSection(aboutLink);
+    refreshSection(aboutLink, 'about', !window.skillsLoaded);
 
     initSection(resumeLink, 'resume');
     initSection(portfolioLink, 'portfolio');
@@ -41,12 +41,12 @@ function initSection(link, script) {
 /**
  * Initialize section each time on navLink click with a condition
  */
-function initAboutSection(link) {
+function refreshSection(link, script, condition) {
     link.addEventListener('click', function clickHandler(e) {
         e.preventDefault();
 
-        if (!window.skillsLoaded) {
-            Helpers.loadSection('about');
+        if (condition) {
+            Helpers.loadSection(script);
         }
     });
 }

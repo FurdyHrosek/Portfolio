@@ -41,14 +41,14 @@
                             0 0 6px $color-loader,
                             0 0 8px $color-loader,
                             0 0 10px $color-loader;
-                animation: animate 0.5s linear infinite;
+                animation: animateLoader 0.5s linear infinite;
                 animation-delay: calc(0.025s * var(--i));
             }
         }
     }
 }
 
-@keyframes animate {
+@keyframes animateLoader {
     0% {
         transform: scale(1);
     }
