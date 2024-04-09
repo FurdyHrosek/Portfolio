@@ -20,6 +20,15 @@
             justify-content: center;
             margin-top: 15px;
             gap: 25px;
+
+            @include max-sm {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr;
+
+                .portfolio-btn {
+                    justify-self: center;
+                }
+            }
       
             .portfolio-btn {
               width: max-content;
