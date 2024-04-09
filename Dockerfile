@@ -31,6 +31,7 @@ COPY --from=build /app/assets/images /usr/share/nginx/html/dist/images
 COPY --from=build /app/src/html /usr/share/nginx/html/dist/html
 COPY --from=build /app/dist/js /usr/share/nginx/html/dist/js
 COPY --from=build /app/index.html /usr/share/nginx/html/index.html
+COPY netlify.toml /app/netlify.toml
 
 # Expose port 80 to the outside world
 EXPOSE 80
