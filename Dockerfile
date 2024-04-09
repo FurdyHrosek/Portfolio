@@ -19,16 +19,6 @@ RUN mkdir -p dist/html dist/css dist/js dist/images
 # Use Webpack to build the project
 RUN npm run build
 
-# Set the working directory to /app/dist
-WORKDIR /app/dist
-
-# Copy the necessary files to the dist folder
-COPY assets/images images
-COPY src/scss scss
-COPY src/html html
-COPY index.html .
-
-
 # Use an official Nginx image as the base
 FROM nginx:alpine
 
