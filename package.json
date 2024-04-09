@@ -28,7 +28,6 @@
   },
   "dependencies": {
     "emailjs-com": "^3.2.0",
-    "netlify": "^13.1.14",
     "regenerator-runtime": "^0.13.11"
   },
   "browserslist": [
