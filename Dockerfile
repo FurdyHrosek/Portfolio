@@ -14,10 +14,19 @@ RUN npm install
 COPY . .
 
 # Create necessary directories
-RUN mkdir -p dist/html dist/css dist/js
+RUN mkdir -p dist/html dist/css dist/js dist/images
 
 # Use Webpack to build the project
 RUN npm run build
+
+# Set the working directory to /app/dist
+WORKDIR /app/dist
+
+# Copy the necessary files to the dist folder
+COPY assets/images images
+COPY src/scss scss
+COPY src/html html
+COPY index.html .
 
 
 # Use an official Nginx image as the base
@@ -31,7 +40,6 @@ COPY --from=build /app/assets/images /usr/share/nginx/html/dist/images
 COPY --from=build /app/src/html /usr/share/nginx/html/dist/html
 COPY --from=build /app/dist/js /usr/share/nginx/html/dist/js
 COPY --from=build /app/index.html /usr/share/nginx/html/index.html
-COPY netlify.toml /app/netlify.toml
 
 # Expose port 80 to the outside world
 EXPOSE 80
