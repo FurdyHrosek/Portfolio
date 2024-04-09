@@ -1,6 +1,6 @@
 # netlify.toml
 
 [build]
-  command = "webpack --mode production"
+  command = "npm run build webpack --mode production"
   publish = "dist"
   base = "/app"
