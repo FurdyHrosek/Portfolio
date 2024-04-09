@@ -50,7 +50,8 @@ export default class Portfolio {
                 newModal.innerHTML = html;
     
                 const contentWrapper = document.querySelector('.content-wrapper');
-                contentWrapper.parentNode.insertBefore(newModal, contentWrapper);
+                contentWrapper.prepend(newModal);
+                //contentWrapper.parentNode.insertBefore(newModal, contentWrapper);
     
                 document.body.classList.add('modal-open');
     

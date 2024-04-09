@@ -1,15 +1,15 @@
 .project-modal {
-    position: fixed;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px 50px 50px 50px;
+    max-width: 1520px;
+    margin-top: 20px;
 
     background-color: $color-background-black;
     top: $header-top-height;
     z-index: 1000;
-
-    margin: auto;
 
     .modal-content {
         gap: 30px;

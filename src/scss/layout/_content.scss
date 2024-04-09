@@ -5,6 +5,10 @@ body {
     &.modal-open {
         overflow: hidden;
 
+        @include max-md {
+            overflow: auto !important;
+        }
+
         section {
             display: none !important;
         }
