@@ -62,46 +62,6 @@ export default class Portfolio {
     }
 
 
-    modalCarousel() {
-        // Select all modal images
-        const modalImages = document.querySelectorAll('.modal-img');
-
-        // Get the total number of images
-        const totalImages = modalImages.length;
-
-        // Initialize the current image index
-        let currentImageIndex = 0;
-
-        // Function to show the current image and hide others
-        const showCurrentImage = () => {
-            modalImages.forEach((image, index) => {
-                if (index === currentImageIndex) {
-                    image.classList.add('active');
-                } else {
-                    image.classList.remove('active');
-                }
-            });
-        };
-
-        // Function to navigate to the next image
-        const nextImage = () => {
-            currentImageIndex = (currentImageIndex + 1) % totalImages;
-            showCurrentImage();
-        };
-
-        // Function to navigate to the previous image
-        const prevImage = () => {
-            currentImageIndex = (currentImageIndex - 1 + totalImages) % totalImages;
-            showCurrentImage();
-        };
-
-        // Attach event listeners to handle navigation
-        document.querySelector('.modal-prev-btn').addEventListener('click', prevImage);
-        document.querySelector('.modal-next-btn').addEventListener('click', nextImage);
-
-    }
-
-
     /**
      * Remove open modal on close btn click
      */
@@ -167,7 +127,7 @@ export default class Portfolio {
      */
     showProjects(projects) {
         projects.forEach(project => {
-            project.style.display = 'flex';
+            project.style.display = 'block';
         });
     }
 
