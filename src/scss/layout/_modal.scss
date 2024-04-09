@@ -23,12 +23,24 @@
     .modal-content {
         display: flex;
         flex-direction: row;
+
         @include max-md {
             flex-direction: column !important;
         }
+
         .modal-images {
             flex-basis: 60%;
             height: 100%;
+            max-width: 100%;
+
+            img {
+                display: none;
+                max-width: 100%;
+
+                &.active {
+                    display: block !important;
+                }
+            }
 
             @include max-md {
                 flex-basis: 100%;
