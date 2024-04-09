@@ -53,5 +53,11 @@ section {
 
             background: $color-red-primary;
         }
+
+        @include max-sm {
+            &::after {
+                width: 100% !important;
+            }
+        }
     }
 }

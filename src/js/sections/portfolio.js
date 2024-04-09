@@ -125,7 +125,7 @@ export default class Portfolio {
      */
     showProjects(projects) {
         projects.forEach(project => {
-            project.style.display = 'block';
+            project.style.display = 'flex';
         });
     }
 

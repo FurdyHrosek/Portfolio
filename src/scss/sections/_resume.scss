@@ -14,9 +14,18 @@
       gap: 40px;
       margin-top: 30px;
 
+      @include max-sm {
+        gap: 20px;
+      }
+
       .resume-btn {
         width: 150px;
         padding: 10px;
+
+        @include max-sm {
+          width: max-content;
+          font-size: 10px;
+        }
 
         background-color: $color-background-black;
         color: $color-font-primary;
@@ -147,6 +156,18 @@
             position: relative;
             margin-bottom: $resume-work-gap;
             transition: $trans;
+
+            @include max-xs {
+              * {
+                max-width: 250px !important;
+              }
+            }
+
+            @include range-sm {
+              li {
+                max-width: max-content !important;
+              }
+            }
 
             @include max-lg {
               margin-bottom: 30px !important;
@@ -378,6 +399,10 @@
                   width: max-content;
                   max-width: 400px;
                   margin-left: 16px;
+
+                  @include max-sm {
+                    max-width: 300px;
+                  }
                 }
               }
             }

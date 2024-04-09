@@ -13,6 +13,36 @@ export default class Navigation {
         this.setupNavigation();
         this.scrollOnNavigationClick();
         this.hackerEffect();
+        this.handleNavigationMenu();
+    }
+
+
+    handleNavigationMenu() {
+        const nav = document.querySelector('nav');
+
+        const toggleMobileClass = () => {
+            nav.classList.toggle('mobile', window.innerWidth < 768);
+        }
+
+        toggleMobileClass();
+
+        window.addEventListener('resize', () => {
+            toggleMobileClass();
+        })
+
+        const navHelper = document.querySelector('.nav-helper');
+        const navMenu = document.querySelector('nav ul');
+
+        navHelper.addEventListener('click', () => {
+            navMenu.classList.toggle('visible');
+            document.body.classList.toggle('nav-open');
+        });
+
+        this.navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('visible');
+            })
+        })
     }
 
 
