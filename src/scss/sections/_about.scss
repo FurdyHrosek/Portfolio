@@ -154,8 +154,9 @@
                         max-width: $about-icon-size;
                         height: $about-icon-size;
                         max-height: $about-icon-size;
-                        background-size: cover;
+                        background-size: contain;
                         background-position: center;
+                        background-repeat: no-repeat;
                     }
                 }
             }
@@ -207,8 +208,9 @@
                         height: $about-icon-size;
                         max-height: $about-icon-size;
                         margin: 0 15px;
-                        background-size: cover;
+                        background-size: contain;
                         background-position: center;
+                        background-repeat: no-repeat;
                     }
                 }
             }
