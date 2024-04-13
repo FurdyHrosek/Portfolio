@@ -1,3 +1,15 @@
+.nav-open {
+	.nav-helper {
+		&::before {
+			background-image: none !important;
+			content: '×' !important;
+			position: relative;
+			font-size: 42px;
+			top: -15px !important;
+		}
+	}
+}
+
 .header-top {
 	width: 100% !important;
 
@@ -55,9 +67,25 @@
 					text-transform: uppercase;
 					color: $color-font-primary;
 					font-size: 20px;
+					cursor: pointer;
 
-					top: calc(50% - 10px);
+					min-width: 20px;
+					min-height: 20px;
+
+					top: calc(50% - 12px);
 					right: 30px;
+
+					&::before {
+						content: '';
+						display: block;
+						background-image: url('/assets/icons/hamburger.png');
+                        width: $hamburger-icon-size;
+                        max-width: $hamburger-icon-size;
+                        height: $hamburger-icon-size;
+                        max-height: $hamburger-icon-size;
+                        background-size: cover;
+                        background-position: center;
+					}
 				}
 
 				ul {
