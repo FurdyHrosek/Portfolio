@@ -18,6 +18,10 @@ body {
         display: flex;
         justify-content: center;
         background-color: $color-background;
+
+        @include max-sm {
+            overflow-x: hidden !important;
+        }
     }
 
     #loom-companion-mv3 {
