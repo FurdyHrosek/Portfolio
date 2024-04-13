@@ -45,9 +45,13 @@ export default class About {
                 }
             }
 
+            const progressAnimationDelay = window.innerWidth >= 768
+                ? homeAppearanceDelay
+                : 0;
+
             const observer = new IntersectionObserver(entries => {
                 if (entries[0].isIntersecting) {
-                    setTimeout(startProgressAnimation, homeAppearanceDelay);
+                    setTimeout(startProgressAnimation, progressAnimationDelay);
                     observer.unobserve(language);
                 }
             });

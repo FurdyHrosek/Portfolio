@@ -27,6 +27,11 @@
     
                 .my-photo-container {
                     margin-top: 10px;
+
+                    @include max-xs {
+                        display: flex;
+                        justify-content: center;
+                    }
                 }
     
                 .my-description-container {

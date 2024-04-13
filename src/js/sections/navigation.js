@@ -41,6 +41,7 @@ export default class Navigation {
         this.navLinks.forEach(link => {
             link.addEventListener('click', () => {
                 navMenu.classList.remove('visible');
+                document.body.classList.remove('nav-open');
             })
         })
     }
