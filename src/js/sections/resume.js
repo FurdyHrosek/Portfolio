@@ -12,6 +12,7 @@ export default class Resume {
         this.resumeButtons = document.querySelectorAll('.resume-btn');
         this.trees = document.querySelectorAll('.tree');
         this.treeContents = document.querySelectorAll('.tree-content');
+        this.treeDescriptions = document.querySelectorAll('.tree-description');
     
         this.shouldTriggerResize = false;
         
@@ -121,17 +122,20 @@ export default class Resume {
      * Handle mouseover event on work-helper elements
      */
     handleMouseOver(event, closestWork, workHelper) {
-        const workDesc = event.target.closest('.tree').querySelector('.tree-description');
+        const closeDesc = event.target.closest('.tree').querySelector('.tree-description');
 
-        if (!workDesc) return;
+        if (!closeDesc) return;
 
-        workDesc.classList.add('hovered');
+        this.trees.forEach(tree => {
+            if (tree === event.target.closest('.tree')) return;
+            tree.classList.add('blocked');
+        });
 
-        const workDescWrapper = workDesc.querySelector('.tree-description-wrapper');
+        const workDescWrapper = closeDesc.querySelector('.tree-description-wrapper');
 
-        const workDescHeight = this.getWorkDescriptionHeight(workDesc);
+        const workDescHeight = this.getWorkDescriptionHeight(closeDesc);
     
-        workDesc.style.display = 'block';
+        closeDesc.style.display = 'block';
 
         clearTimeout(this.mouseOutTimeout);
 
@@ -154,15 +158,18 @@ export default class Resume {
      * Handle mouseout event on work-helper elements
      */
     handleMouseOut(event, closestWork, workHelper) {
-        const workDesc = event.target.closest('.tree').querySelector('.tree-description');
+        const closeDesc = event.target.closest('.tree').querySelector('.tree-description');
     
-        if (!workDesc) return;
+        if (!closeDesc) return;
     
-        const workDescWrapper = workDesc.querySelector('.tree-description-wrapper');
+        const workDescWrapper = closeDesc.querySelector('.tree-description-wrapper');
     
         this.mouseOutTimeout = setTimeout(() => {
-            workDesc.style.display = 'none';
-            workDesc.classList.remove('hovered');
+            closeDesc.style.display = 'none';
+
+            this.trees.forEach(tree => {
+                tree.classList.remove('blocked');
+            });
         }, globalTransition);
     
         this.startDescriptionAnimation(workDescWrapper, 0, treeAnimationDuration, 'out');
