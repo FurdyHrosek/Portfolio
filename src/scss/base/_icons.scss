@@ -39,6 +39,11 @@
             background-image: url('/assets/icons/libraries/jquery.svg');
         }
     }
+    &#vite {
+        &::before {
+            background-image: url('/assets/icons/libraries/vite.png');
+        }
+    }
 }
 
 
