@@ -116,6 +116,7 @@
                     display: flex;
                     flex-direction: column;
                     align-items: center;
+                    justify-content: space-between;
                     width: calc(10% - 9px);
                     text-align: center;
                     padding-top: 15px;
@@ -147,16 +148,15 @@
                         font-size: 13px;
                     }
 
-                    &::before {
-                        content: '';
+                    .skill-icon {
                         display: block;
-                        width: $about-icon-size;
                         max-width: $about-icon-size;
-                        height: $about-icon-size;
-                        max-height: $about-icon-size;
-                        background-size: contain;
-                        background-position: center;
-                        background-repeat: no-repeat;
+                    }
+
+                    &#tailwind {
+                        .skill-icon {
+                            transform: translateY(5px);
+                        }
                     }
                 }
             }
@@ -200,17 +200,10 @@
                         font-size: 13px;
                     }
 
-                    &::before {
-                        content: '';
+                    .interest-icon {
                         display: block;
-                        width: $about-icon-size;
                         max-width: $about-icon-size;
-                        height: $about-icon-size;
-                        max-height: $about-icon-size;
                         margin: 0 15px;
-                        background-size: contain;
-                        background-position: center;
-                        background-repeat: no-repeat;
                     }
                 }
             }

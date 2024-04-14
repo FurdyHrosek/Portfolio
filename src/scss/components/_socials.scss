@@ -7,7 +7,7 @@
         display: flex;
         align-items: center;
 
-        &::before {
+        img {
             content: '';
             display: block;
             width: $socials-icon-size;
