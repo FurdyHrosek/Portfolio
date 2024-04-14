@@ -3,14 +3,12 @@
     display: flex;
     flex-direction: row;
     gap: 10px;
-    z-index: 1000;
 
     a {
         display: flex;
         align-items: center;
 
         img {
-            content: '';
             display: block;
             width: $socials-icon-size;
             max-width: $socials-icon-size;
