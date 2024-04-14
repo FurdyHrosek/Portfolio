@@ -1,5 +1,9 @@
 .nav-open {
 	.nav-helper {
+		.hamburger-icon {
+			display: none !important;
+		}
+
 		&::before {
 			background-image: none !important;
 			content: '×' !important;
@@ -75,10 +79,8 @@
 					top: calc(50% - 12px);
 					right: 30px;
 
-					&::before {
-						content: '';
+					.hamburger-icon {
 						display: block;
-						background-image: url('/assets/icons/hamburger.png');
                         width: $hamburger-icon-size;
                         max-width: $hamburger-icon-size;
                         height: $hamburger-icon-size;
